@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的个人资源站</title>
+    <style>
+        /* --- 1. 全局设置 --- */
+        :root {
+            --primary-color: #007bff;
+            --bg-color: #f4f6f8;
+            --card-bg: #ffffff;
+            --text-main: #333;
+            --text-sub: #666;
+        }
+
+        html {
+            /* 关键：让点击跳转变成平滑滚动 */
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-main);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+        }
+
+        a { text-decoration: none; transition: 0.3s; color: inherit; }
+        
+        /* --- 2. 核心布局 (Grid System) --- */
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 280px 1fr; 
+            gap: 30px;
+            align-items: start;
+        }
+
+        /* --- 3. 左侧侧边栏 (Sidebar) --- */
+        .sidebar {
+            background: var(--card-bg);
+            padding: 30px 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            text-align: center;
+            /* 侧边栏固定 */
+            position: sticky;
+            top: 20px; 
+            /* 防止侧边栏太高导致无法滚动到底部 */
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #f0f0f0;
+            margin-bottom: 15px;
+        }
+
+        .sidebar h1 { font-size: 1.5rem; margin: 10px 0 5px; }
+        .sidebar .bio { color: var(--text-sub); font-size: 0.9rem; margin-bottom: 25px; }
+
+        /* 左侧导航菜单 */
+        .nav-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            text-align: left;
+            border-top: 1px solid #eee;
+            padding-top: 20px;
+        }
+        .nav-menu li { margin-bottom: 10px; }
+        .nav-menu a {
+            display: block;
+            padding: 10px 15px;
+            border-radius: 8px;
+            color: #555;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .nav-menu a:hover {
+            background-color: #eef2f5;
+            color: var(--primary-color);
+        }
+        
+        /* 激活状态样式 (JS会动态添加这个类) */
+        .nav-menu a.active { 
+            background-color: #e3f2fd;
+            color: var(--primary-color);
+        }
+
+        /* --- 4. 右侧内容区 --- */
+        .section-card {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+            margin-bottom: 30px;
+            /* 关键：为了防止锚点跳转时标题被遮挡，增加滚动边距 */
+            scroll-margin-top: 20px;
+        }
+
+        h2.section-title {
+            margin-top: 0;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f0f0f0;
+            color: #2c3e50;
+            font-size: 1.4rem;
+        }
+
+        /* 捷径按钮 */
+        .shortcut-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 15px;
+        }
+        .btn-shortcut {
+            background-color: #f8f9fa;
+            border: 1px solid #eee;
+            padding: 15px;
+            text-align: center;
+            border-radius: 8px;
+            font-weight: bold;
+            color: #4a5568;
+        }
+        .btn-shortcut:hover {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+            transform: translateY(-2px);
+        }
+
+        /* 资料卡片 */
+        h3.category-title {
+            background: #f1f3f5;
+            padding: 8px 12px;
+            border-radius: 6px;
+            color: #495057;
+            font-size: 1rem;
+            margin: 30px 0 15px 0;
+            display: inline-block;
+        }
+        .file-card {
+            border: 1px solid #eee;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 15px;
+            transition: 0.2s;
+        }
+        .file-card:hover {
+            border-color: var(--primary-color);
+            box-shadow: 0 4px 12px rgba(0,123,255,0.1);
+        }
+        .desc-top { font-size: 0.9rem; color: #666; margin: 0 0 5px; font-style: italic; }
+        .file-link {
+            display: block;
+            font-size: 1.15rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin: 5px 0 10px;
+        }
+        .file-link::before { content: "· "; }
+        .desc-bottom { font-size: 0.8rem; color: #aaa; margin: 0; padding-top: 10px; border-top: 1px dashed #eee; }
+
+        /* 移动端适配 */
+        @media (max-width: 768px) {
+            .container { grid-template-columns: 1fr; margin: 20px auto; }
+            .sidebar { position: relative; top: 0; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    
+    <aside class="sidebar">
+        <img src="https://via.placeholder.com/150" alt="Avatar" class="avatar">
+        <h1>殺手</h1>
+        <p class="bio">君子坐而论道<br>少年起而行之</p>
+        
+        <ul class="nav-menu">
+            <li><a href="#intro" class="nav-link active">首页介绍</a></li>
+            <li><a href="#shortcuts" class="nav-link">常用捷径</a></li>
+            <li><a href="#files" class="nav-link">资料下载</a></li>
+            <li><a href="https://github.com" target="_blank">我的 GitHub</a></li>
+        </ul>
+        
+        <div style="margin-top: 30px; font-size: 0.8rem; color: #ccc;">
+            &copy; 2026 powered by Github Pages
+        </div>
+    </aside>
+
+
+    <main class="main-content">
+
+        <section id="intro" class="section-card">
+            <h2 class="section-title">关于这个网站</h2>
+            <p>
+                这是SYH借助Gemini搭建的个人网站，希望在此处存放一些个人资料，以及为以后想建设的多人使用网站打下基础。
+            </p>
+        </section>
+
+        <section id="shortcuts" class="section-card">
+            <h2 class="section-title">常用工具捷径</h2>
+            <div class="shortcut-grid">
+                <a href="https://chatgpt.com" target="_blank" class="btn-shortcut">ChatGPT</a>
+                <a href="https://github.com" target="_blank" class="btn-shortcut">GitHub</a>
+                <a href="https://www.bilibili.com" target="_blank" class="btn-shortcut">Bilibili</a>
+            </div>
+        </section>
+
+        <section id="files" class="section-card">
+            <h2 class="section-title">学习资料库</h2>
+            <h3 class="category-title">编程开发</h3>
+            
+            <div class="file-card">
+                <p class="desc-top">Python 基础语法速查表</p>
+                <a href="#" class="file-link" download>Python_CheatSheet.pdf</a>
+                <p class="desc-bottom">大小: 2MB | 2024-03-20</p>
+            </div>
+            
+            <div class="file-card">
+                <p class="desc-top">Web 前端面试宝典</p>
+                <a href="#" class="file-link" download>Web_Interview.docx</a>
+                <p class="desc-bottom">仅供内部学习</p>
+            </div>
+
+            <h3 class="category-title">其他资源</h3>
+            <div class="file-card">
+                <p class="desc-top">考研英语核心词汇</p>
+                <a href="#" class="file-link" download>English_Vocab.mp3</a>
+                <p class="desc-bottom">MP3 | 45min</p>
+            </div>
+            
+            <div style="height: 200px;"></div> </section>
+
+    </main>
+</div>
+
+<script>
+    // 1. 获取所有的导航链接和右侧板块
+    const navLinks = document.querySelectorAll('.nav-link');
+    const sections = document.querySelectorAll('.section-card');
+
+    // 2. 监听滚动事件
+    window.addEventListener('scroll', () => {
+        let current = '';
+
+        sections.forEach(section => {
+            // 获取板块距离顶部的距离
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.clientHeight;
+            
+            // 逻辑：如果页面滚动超过了板块的顶部（减去一些偏移量），就认为当前在这个板块
+            if (pageYOffset >= (sectionTop - 150)) {
+                current = section.getAttribute('id');
+            }
+        });
+
+        // 3. 移除所有 active，只给当前的加上 active
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+            // 检查链接的 href 是否包含当前的 id
+            if (link.getAttribute('href').includes(current)) {
+                link.classList.add('active');
+            }
+        });
+    });
+</script>
+
+</body>
+</html>

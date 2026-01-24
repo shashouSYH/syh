@@ -1,292 +1,512 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>我的个人网站</title>
+
     <style>
-        /* --- 1. 全局设置 --- */
+        /* --- 1. 全局与背景固定设置 --- */
         :root {
             --primary-color: #007bff;
-            --card-bg: rgba(255, 255, 255, 0.95); /* 卡片稍微透明，透出一点背景 */
-            --text-main: #333;
-            --text-sub: #666;
+            --card-bg: rgba(255, 255, 255, 0.65);
+            --win11-hover: rgba(0, 0, 0, 0.05);
+            --win11-select: rgba(0, 120, 215, 0.12);
+            --win11-select-border: rgba(0, 120, 215, 0.3);
+            --border-color: rgba(0, 0, 0, 0.08);
         }
 
-        html {
-            scroll-behavior: smooth;
-        }
-
+        html,
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            line-height: 1.6;
-            color: var(--text-main);
             margin: 0;
             padding: 0;
-            
-            /* === 添加背景图 === */
+        }
+
+        /* 强制固定背景层，不随 body 滚动 */
+        .bg-fixed-layer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             background-image: url('assets/background.png');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            /* 让背景固定不动，产生视差效果 */
-            background-attachment: fixed;
+            z-index: -2;
+            background-color: #444;
         }
 
-        a { text-decoration: none; transition: 0.3s; color: inherit; }
-        
-        /* --- 2. 核心布局 --- */
+        /* 遮罩层 */
+        .bg-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.03);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        body {
+            font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* --- 2. 布局 --- */
         .container {
             max-width: 1200px;
-            margin: 40px auto;
-            padding: 0 20px;
-            display: grid;
-            grid-template-columns: 280px 1fr; 
-            gap: 30px;
-            /* 确保侧边栏的高度是根据内容自适应，而不是被拉伸，这样 sticky 才会生效 */
-            align-items: start; 
+            margin: 0 auto;
+            padding: 40px 20px 120px;
+            display: block;
+            position: relative;
         }
 
-        /* --- 3. 左侧侧边栏 --- */
+        /* --- 3. 侧边栏 --- */
         .sidebar {
             background: var(--card-bg);
             padding: 30px 20px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
             text-align: center;
-            
-            /* === 侧边栏悬浮设置 === */
-            /* Sticky 效果：当页面滚动时，它会卡在距离顶部 20px 的位置 */
-            position: -webkit-sticky; /* 兼容 Safari */
-            position: sticky;
-            top: 40px; 
-            
-            /* 如果侧边栏内容太多，允许侧边栏内部滚动，但不影响主页面 */
-            max-height: calc(100vh - 40px);
-            overflow-y: auto;
-            backdrop-filter: blur(5px); /* 毛玻璃效果 */
+            position: fixed;
+            top: 40px;
+            width: 240px;
+            z-index: 100;
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
         }
-
-        /* 隐藏侧边栏的滚动条*/
-        .sidebar::-webkit-scrollbar { width: 0; }
 
         .avatar {
-            width: 120px;
-            height: 120px;
+            width: 100px;
+            height: 100px;
             border-radius: 50%;
+            margin: 10px auto 15px;
+            display: block;
             object-fit: cover;
-            border: 4px solid #fff;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            margin-bottom: 15px;
         }
 
-        .sidebar h1 { font-size: 1.5rem; margin: 10px 0 5px; }
-        .sidebar .bio { color: var(--text-sub); font-size: 0.9rem; margin-bottom: 25px; }
-
-        /* 左侧导航菜单 */
         .nav-menu {
             list-style: none;
-            padding: 0;
-            margin: 0;
+            padding: 20px 0 0;
+            margin: 20px 0 0;
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
             text-align: left;
-            border-top: 1px solid #eee;
-            padding-top: 20px;
         }
-        .nav-menu li { margin-bottom: 10px; }
+
+        .nav-menu li {
+            margin-bottom: 8px;
+        }
+
         .nav-menu a {
             display: block;
             padding: 10px 15px;
             border-radius: 8px;
-            color: #555;
             font-weight: 600;
+            color: #333;
+            text-decoration: none;
+            transition: 0.2s;
         }
-        .nav-menu a:hover {
-            background-color: rgba(0, 123, 255, 0.1);
-            color: var(--primary-color);
-        }
-        
-        .nav-menu a.active { 
-            background-color: rgba(0, 123, 255, 0.1);
+
+        .nav-menu a:hover,
+        .nav-menu a.active {
+            background: rgba(0, 123, 255, 0.1);
             color: var(--primary-color);
         }
 
-        /* --- 4. 右侧内容区 --- */
+        /* --- 4. 内容区 --- */
+        main {
+            margin-left: 310px;
+        }
+
         .section-card {
             background: var(--card-bg);
             padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
             margin-bottom: 30px;
-            scroll-margin-top: 20px;
-            backdrop-filter: blur(5px);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
         }
 
-        h2.section-title {
+        .section-title {
             margin-top: 0;
-            padding-bottom: 15px;
-            border-bottom: 2px solid #f0f0f0;
-            color: #2c3e50;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            padding-bottom: 10px;
             font-size: 1.4rem;
         }
 
-        /* 捷径按钮 */
-        .shortcut-grid {
+        /* --- 5. Win11 文件管理器 --- */
+        .w11-explorer {
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.3) !important;
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            height: 520px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .w11-toolbar {
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.2) !important;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        #w11-back {
+            cursor: pointer;
+            border: none;
+            background: none;
+            display: flex;
+            padding: 6px;
+            border-radius: 4px;
+        }
+
+        #w11-back:hover {
+            background: rgba(0, 0, 0, 0.08);
+        }
+
+        .w11-addr {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            padding: 4px 12px;
+            background: rgba(255, 255, 255, 0.6) !important;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 4px;
+            font-size: 13px;
+        }
+
+        .crumb {
+            cursor: pointer;
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: #444;
+        }
+
+        .crumb:hover {
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        .w11-content {
+            flex: 1;
+            overflow-y: auto;
+            scrollbar-width: none;
+            padding-top: 2px;
+        }
+
+        .w11-content::-webkit-scrollbar {
+            display: none;
+        }
+
+        .w11-header {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-            gap: 15px;
-        }
-        .btn-shortcut {
-            background-color: #f8f9fa;
-            border: 1px solid #eee;
-            padding: 15px;
-            text-align: center;
-            border-radius: 8px;
-            font-weight: bold;
-            color: #4a5568;
-            transition: 0.2s;
-        }
-        .btn-shortcut:hover {
-            border-color: var(--primary-color);
-            color: var(--primary-color);
-            transform: translateY(-3px);
-            background: #fff;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            grid-template-columns: 280px 1fr;
+            gap: 20px;
+            padding: 0 20px;
+            align-items: center;
+            height: 32px;
+            font-size: 12px;
+            color: #777;
+            font-weight: 600;
+            border-bottom: 1px solid var(--border-color);
+            background: rgba(255, 255, 255, 0.1);
+            margin-bottom: 6px;
         }
 
-        /* 资料卡片 */
-        h3.category-title {
-            background: #e9ecef;
-            padding: 8px 12px;
+        .w11-item {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 20px;
+            padding: 8px 20px;
+            align-items: center;
+            margin: 3px 8px;
             border-radius: 6px;
-            color: #495057;
-            font-size: 1rem;
-            margin: 30px 0 15px 0;
-            display: inline-block;
+            border: 1px solid transparent;
+            transition: background 0.1s, border-color 0.1s;
+            cursor: default;
         }
-        .file-card {
-            border: 1px solid #eee;
-            border-radius: 8px;
-            padding: 20px;
-            margin-bottom: 15px;
-            transition: 0.2s;
-            background: rgba(255,255,255,0.6);
-        }
-        .file-card:hover {
-            border-color: var(--primary-color);
-            box-shadow: 0 4px 12px rgba(0,123,255,0.15);
-            transform: translateX(5px);
-        }
-        .desc-top { font-size: 0.9rem; color: #666; margin: 0 0 5px; font-style: italic; }
-        .file-link {
-            display: block;
-            font-size: 1.15rem;
-            font-weight: bold;
-            color: var(--primary-color);
-            margin: 5px 0 10px;
-        }
-        .file-link::before { content: "· "; } 
-        .desc-bottom { font-size: 0.8rem; color: #aaa; margin: 0; padding-top: 10px; border-top: 1px dashed #eee; }
 
-        /* 移动端适配 */
+        .w11-item:hover {
+            background: var(--win11-hover) !important;
+        }
+
+        .w11-item.selected {
+            background: var(--win11-select) !important;
+            border: 1px solid var(--win11-select-border);
+        }
+
+        .w11-item-name {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 13px;
+            color: #111;
+        }
+
+        .w11-item-desc {
+            font-size: 12px;
+            color: #666;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
         @media (max-width: 768px) {
-            .container { grid-template-columns: 1fr; margin: 20px auto; }
-            /* 手机端通常不固定侧边栏，因为屏幕太小，占位置 */
-            .sidebar { position: relative; top: 0; z-index: 10; }
+            .sidebar {
+                position: relative;
+                top: 0;
+                width: auto;
+                margin-bottom: 20px;
+            }
+
+            main {
+                margin-left: 0;
+            }
+
+            .container {
+                padding: 20px 10px;
+            }
+
+            .w11-header,
+            .w11-item {
+                grid-template-columns: 1fr 100px;
+            }
         }
     </style>
 </head>
+
 <body>
 
+<div class="bg-fixed-layer"></div>
+
+<div class="bg-overlay"></div>
+
 <div class="container">
-    
+
     <aside class="sidebar">
-        <img src="assets/avatar.png" alt="Avatar" class="avatar">
-        <h1>殺手</h1>
-        <p class="bio">君子坐而论道<br>少年起而行之</p>
-        
+
+        <img src="assets/avatar.png"
+             alt="头像"
+             class="avatar"
+             onerror="this.src='https://img.icons8.com/fluency/96/user-male-circle.png'">
+
+        <h1 style="margin:10px 0 5px; font-size: 1.5rem;">殺手</h1>
+
+        <p style="font-size: 0.9rem; color: #555; line-height: 1.6;">
+            君子坐而论道<br>
+            少年起而行之
+        </p>
+
         <ul class="nav-menu">
-            <li><a href="#intro" class="nav-link active">网站介绍</a></li>
-            <li><a href="#shortcuts" class="nav-link">常用捷径</a></li>
-            <li><a href="#files" class="nav-link">学习资料</a></li>
-            <li><a href="NULL" target="_blank">联系我</a></li>
+            <li>
+                <a href="#intro" class="nav-link active">网站介绍</a>
+            </li>
+            <li>
+                <a href="#files" class="nav-link">学习资料</a>
+            </li>
         </ul>
-        
-        <div style="margin-top: 30px; font-size: 0.8rem; color: #999;">
-            &copy; 2026 Powered by Gemini
-        </div>
+
     </aside>
 
-    <main class="main-content">
+    <main>
 
         <section id="intro" class="section-card">
             <h2 class="section-title">网站介绍</h2>
-            <p>
-                这是SYH借助Gemini搭建的个人网站。   
-            </p>
-            <p>
-                你可以在这里下载我整理的学习资料，或者快速跳转到常用的工具网站。
-            </p>
-        </section>
-
-        <section id="shortcuts" class="section-card">
-            <h2 class="section-title">常用捷径</h2>
-            <div class="shortcut-grid">
-                <a href="https://chatgpt.com" target="_blank" class="btn-shortcut">ChatGPT</a>
-                <a href="https://github.com" target="_blank" class="btn-shortcut">GitHub</a>
-                <a href="https://www.bilibili.com" target="_blank" class="btn-shortcut">Bilibili</a>
-            </div>
+            <p>这是借助 Gemini 与 Github Pages 搭建的个人网站。你可以在这里下载我整理的学习资料。</p>
         </section>
 
         <section id="files" class="section-card">
+
             <h2 class="section-title">学习资料</h2>
-            <p style="font-size:0.9rem; color:#666;">点击下方文件名即可直接下载或预览。</p>
-            
-            <h3 class="category-title">编程开发</h3>
-            
-            <div class="file-card">
-                <p class="desc-top">Python 基础语法速查表</p>
-                <a href="./downloads/Python_CheatSheet.pdf" class="file-link" target="_blank">Python_CheatSheet.pdf</a>
-                <p class="desc-bottom">PDF文档 | 推荐新手阅读</p>
-            </div>
-            
-            <div class="file-card">
-                <p class="desc-top">Web 前端面试宝典</p>
-                <a href="./downloads/Web_Interview.docx" class="file-link">Web_Interview.docx</a>
-                <p class="desc-bottom">Word文档 | 2026版</p>
+
+            <p style="font-size: 0.85rem; color: #888; margin-bottom: 10px;">
+                双击文件夹进入，双击文件下载, pdf默认在浏览器中打开
+            </p>
+
+            <div class="w11-explorer">
+
+                <div class="w11-toolbar">
+
+                    <button id="w11-back">
+                        <img src="https://img.icons8.com/material-outlined/48/left.png"
+                             style="width:20px; height:20px;">
+                    </button>
+
+                    <div class="w11-addr" id="w11-path"></div>
+
+                </div>
+
+                <div class="w11-content" id="w11-grid"></div>
+
             </div>
 
-            <h3 class="category-title">英语资源</h3>
-            <div class="file-card">
-                <p class="desc-top">考研英语核心词汇音频</p>
-                <a href="./downloads/English_Vocab.mp3" class="file-link" download>English_Vocab.mp3</a>
-                <p class="desc-bottom">MP3 | 45min | 磨耳朵专用</p>
-            </div>
-            
-            <div style="height: 100px;"></div> 
         </section>
 
     </main>
+
 </div>
 
 <script>
-    const navLinks = document.querySelectorAll('.nav-link');
-    const sections = document.querySelectorAll('.section-card');
+    const iconMap = {
+        "folder": "https://img.icons8.com/fluency/48/folder-invoices.png",
+        "pdf": "https://img.icons8.com/?size=100&id=l0vjMqIboTRs&format=png&color=000000",
+        "pptx": "https://img.icons8.com/fluency/48/microsoft-powerpoint-2019.png",
+        "xlsx": "https://img.icons8.com/fluency/48/microsoft-excel-2019.png",
+        "docx": "https://img.icons8.com/fluency/48/microsoft-word-2019.png",
+        "zip": "https://img.icons8.com/?size=100&id=egBMwtUa6BXU&format=png&color=000000",
+        "mp3": "https://img.icons8.com/?size=100&id=zAzROOhkw_7N&format=png&color=000000",
+        "mp4": "https://img.icons8.com/?size=100&id=114331&format=png&color=000000",
+        "default": "https://img.icons8.com/fluency/48/file.png"
+    };
+
+    const db = {
+        "1秋": {
+            type: "folder",
+            desc: "大一秋季学期课内资料汇总",
+            children: {
+                "力学A": {
+                    type: "folder",
+                    desc: "无",
+                    children: {
+                        "力学大作业汇报终稿.pptx": {
+                            desc: "大作业PPT",
+                            url: "files/1秋/力学A/力学大作业汇报终稿.pptx"
+                        },
+                        "力学习题及解答-舒幼生, 北大版, 2005.pdf": {
+                            desc: "舒幼生力学",
+                            url: "files/1秋/力学A/力学习题及解答-舒幼生, 北大版, 2005.pdf"
+                        }
+                    }
+                }
+            }
+        },
+        "英语资源": {
+            type: "folder",
+            desc: "课外阅读、听力及考试资料",
+            children: {
+                "English_Vocab.mp3": {
+                    type: "file",
+                    desc: "雅思核心词汇听读",
+                    url: "#"
+                }
+            }
+        }
+    };
+
+    let currentPath = [];
+
+    function render() {
+        const grid = document.getElementById('w11-grid');
+        const addr = document.getElementById('w11-path');
+
+        let data = db;
+        currentPath.forEach(p => {
+            data = data[p].children;
+        });
+
+        grid.innerHTML =
+            `<div class="w11-header">
+                <div>名称</div>
+                <div>说明</div>
+            </div>`;
+
+        Object.entries(data).forEach(([name, info]) => {
+            const div = document.createElement('div');
+            div.className = 'w11-item';
+
+            div.innerHTML = `
+                <div class="w11-item-name">
+                    <img src="${info.type === 'folder'
+                        ? iconMap.folder
+                        : (iconMap[name.split('.').pop()] || iconMap.default)}"
+                        style="width:20px; height:20px;">
+                    <span>${name}</span>
+                </div>
+                <div class="w11-item-desc">${info.desc || '—'}</div>
+            `;
+
+            div.onclick = (e) => {
+                document.querySelectorAll('.w11-item')
+                    .forEach(el => el.classList.remove('selected'));
+                div.classList.add('selected');
+                e.stopPropagation();
+            };
+
+            div.ondblclick = () => {
+                if (info.type === 'folder') {
+                    currentPath.push(name);
+                    render();
+                } else {
+                    window.open(info.url, '_blank');
+                }
+            };
+
+            grid.appendChild(div);
+        });
+
+        addr.innerHTML = '';
+
+        const home = document.createElement('span');
+        home.className = 'crumb';
+        home.innerText = '首页';
+        home.onclick = () => {
+            currentPath = [];
+            render();
+        };
+        addr.appendChild(home);
+
+        currentPath.forEach((name, index) => {
+            const sep = document.createElement('span');
+            sep.innerText = ' > ';
+            sep.style.color = '#ccc';
+            addr.appendChild(sep);
+
+            const crumb = document.createElement('span');
+            crumb.className = 'crumb';
+            crumb.innerText = name;
+            crumb.onclick = () => {
+                currentPath = currentPath.slice(0, index + 1);
+                render();
+            };
+            addr.appendChild(crumb);
+        });
+    }
+
+    document.getElementById('w11-back').onclick = () => {
+        if (currentPath.length > 0) {
+            currentPath.pop();
+            render();
+        }
+    };
+
+    render();
 
     window.addEventListener('scroll', () => {
-        let current = '';
-        sections.forEach(section => {
-            const sectionTop = section.offsetTop;
-            // 调整触发距离
-            if (pageYOffset >= (sectionTop - 100)) {
-                current = section.getAttribute('id');
+        let curr = "";
+
+        document.querySelectorAll('section').forEach(s => {
+            if (window.pageYOffset >= s.offsetTop - 150) {
+                curr = s.id;
             }
         });
 
-        navLinks.forEach(link => {
-            link.classList.remove('active');
-            if (link.getAttribute('href').includes(current)) {
-                link.classList.add('active');
-            }
+        document.querySelectorAll('.nav-link').forEach(l => {
+            l.classList.toggle(
+                'active',
+                l.getAttribute('href') === "#" + curr
+            );
         });
     });
 </script>

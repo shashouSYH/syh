@@ -11,6 +11,9 @@
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {
+    "chokidar": "^5.0.0",
+    "inquirer": "^13.2.1",
+    "node-notifier": "^10.0.1",
     "vue": "^3.3.4"
   },
   "devDependencies": {

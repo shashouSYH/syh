@@ -13,7 +13,7 @@
                style="width:20px;height:20px;">
         </button>
 
-        <div class="w11-addr">
+        <div class="w11-addr" v-if="!searchQuery">
           <span class="crumb" @click="jumpTo(-1)">首页</span>
           <template v-for="(pathName, idx) in currentPath" :key="idx">
             <span style="color:#ccc"> > </span>
@@ -21,6 +21,13 @@
               {{ pathName }}
             </span>
           </template>
+        </div>
+        <div class="w11-addr" v-else>
+          <span class="crumb" style="color: #666">搜索结果: "{{ searchQuery }}"</span>
+        </div>
+        
+        <div class="w11-search" style="margin-left: auto; display: flex;">
+          <input type="text" v-model="searchQuery" placeholder="搜索文件或文件夹..." class="w11-search-input" />
         </div>
       </div>
 
@@ -31,16 +38,16 @@
         </div>
 
         <div v-for="(info, name) in currentData"
-             :key="name"
+             :key="info.virtualPath || name"
              class="w11-item"
-             :class="{ selected: selectedName === name }"
-             @click="selectedName = name"
+             :class="{ selected: selectedName === (info.virtualPath || name) }"
+             @click="selectedName = (info.virtualPath || name)"
              @dblclick="handleDblClick(name, info)">
           <div class="w11-item-name">
             <img :src="getIcon(name, info)" style="width:20px;height:20px;">
-            <span>{{ name }}</span>
+            <span :title="info.virtualPath ? info.virtualPath.join(' > ') + ' > ' + name : name">{{ name }}</span>
           </div>
-          <div class="w11-item-desc">
+          <div class="w11-item-desc" :title="info.desc || '—'">
             {{ info.desc || '—' }}
           </div>
         </div>
@@ -57,6 +64,7 @@ const db = window.FILE_DB || {}
 
 const currentPath = ref([])
 const selectedName = ref('')
+const searchQuery = ref('')
 
 const iconMap = {
   folder: "https://img.icons8.com/fluency/48/folder-invoices.png",
@@ -74,7 +82,29 @@ const iconMap = {
   default: "https://img.icons8.com/fluency/48/file.png"
 }
 
+function searchFiles(node, query, pathAcc, result) {
+  for (const [name, info] of Object.entries(node)) {
+    const isMatch = name.toLowerCase().includes(query) || (info.desc && info.desc.toLowerCase().includes(query));
+    if (isMatch) {
+      result[name + (info.virtualPath ? Math.random().toString().slice(2, 6) : "")] = {
+        ...info,
+        virtualPath: pathAcc
+      };
+    }
+    if (info.children) {
+      searchFiles(info.children, query, [...pathAcc, name], result);
+    }
+  }
+}
+
 const currentData = computed(() => {
+  const query = searchQuery.value.trim().toLowerCase();
+  if (query) {
+    const searchResults = {};
+    searchFiles(db, query, [], searchResults);
+    return searchResults;
+  }
+  
   let data = db
   currentPath.value.forEach(p => {
     if (data[p] && data[p].children) {
@@ -86,7 +116,13 @@ const currentData = computed(() => {
 
 function handleDblClick(name, info) {
   if (info.type === 'folder') {
-    currentPath.value.push(name)
+    if (info.virtualPath) {
+      // 如果是搜索结果中的文件夹，跳转到该文件夹的实际路径
+      currentPath.value = [...info.virtualPath, name]
+      searchQuery.value = ''
+    } else {
+      currentPath.value.push(name)
+    }
     selectedName.value = ''
   } else if (info.url) {
     window.open(info.url, '_blank')

@@ -1,7 +1,7 @@
 <template>
   <aside class="sidebar">
     <img
-      src="/assets/avatar.png"
+      src="/avatar.png"
       class="avatar"
       onerror="this.src='https://img.icons8.com/fluency/96/user-male-circle.png'"
     >

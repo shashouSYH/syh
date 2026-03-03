@@ -50,12 +50,10 @@ if %errorlevel% neq 0 (
     )
 )
 
-:: 4. 同步文件
+:: 4. 同步文件至 Github Pages
 echo.
-echo [3/3] 正在同步文件至根目录...
-del /q index.html 2>nul
-if exist assets rd /s /q assets
-xcopy "dist\*" ".\" /e /y /i
+echo [3/3] 正在准备同步文件... (由于直接覆盖会破坏开发环境，因此不再覆盖本地 index.html)
+echo 如果您需要部署到 Github Pages，请手动运行 npm run deploy。
 
 echo.
 echo ---------------------------------------

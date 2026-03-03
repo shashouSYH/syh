@@ -20,7 +20,7 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url('/assets/background.png');
+  background-image: url('/background.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -267,4 +267,42 @@ main {
   .w11-item {
     grid-template-columns: 1fr 100px;
   }
+
+  .w11-toolbar {
+    flex-wrap: wrap;
+  }
+
+  .w11-search {
+    width: 100%;
+    margin-left: 0;
+  }
+}
+
+.w11-search {
+  margin-left: auto;
+  display: flex;
+  position: relative;
+}
+
+.w11-search-input {
+  width: 200px;
+  padding: 6px 12px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  font-size: 13px;
+  background: rgba(255, 255, 255, 0.8);
+  outline: none;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.w11-search-input:focus {
+  border-color: var(--primary-color);
+  background: #fff;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+.w11-item-name span,
+.w11-item-desc {
+  cursor: pointer;
 }

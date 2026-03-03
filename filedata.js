@@ -264,6 +264,16 @@ window.FILE_DB = {
                         url: "files/1春/数据结构及其算法/数据结构及应用算法 2版 (袁平波，顾为兵，尹东编著).pdf"
                     }
                 }
+            },
+            "概率论与数理统计": {
+                type: "folder",
+                desc: "rt",
+                children: {
+                    "概率论与数理统计.pdf": {
+                        desc: "概统教材",
+                        url: "files/1春/概率论与数理统计/概率论与数理统计.pdf"
+                    }
+                }
             }
         }
     }

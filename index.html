@@ -1,13 +1,845 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>我的个人网站</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>我的个人网站</title>
+  <style>
+    :root {
+      --primary-color: #007bff;
+      --card-bg: rgba(255, 255, 255, 0.4);
+      --win11-hover: rgba(0, 0, 0, 0.05);
+      --win11-select: rgba(0, 120, 215, 0.12);
+      --win11-select-border: rgba(0, 120, 215, 0.3);
+      --border-color: rgba(0, 0, 0, 0.08);
+    }
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, sans-serif;
+      height: 100vh;
+      overflow-x: hidden;
+      overflow-y: hidden;
+    }
+
+    .bg-fixed-layer {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url("./background.png");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      z-index: -2;
+      background-color: #444;
+      transition: background-image 0.3s ease-in-out;
+    }
+
+    .bg-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.03);
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 20px;
+      display: block;
+      position: relative;
+      height: 100vh;
+      box-sizing: border-box;
+    }
+
+    .sidebar {
+      background: var(--card-bg);
+      padding: 30px 20px;
+      border-radius: 16px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+      text-align: center;
+      position: fixed;
+      top: 40px;
+      width: 240px;
+      z-index: 100;
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+    }
+
+    .avatar {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      margin: 10px auto 15px;
+      display: block;
+      object-fit: cover;
+    }
+
+    .nav-menu {
+      list-style: none;
+      padding: 20px 0 0;
+      margin: 20px 0 0;
+      border-top: 1px solid rgba(0, 0, 0, 0.05);
+      text-align: left;
+    }
+
+    .nav-menu li {
+      margin-bottom: 8px;
+    }
+
+    .nav-menu a {
+      display: block;
+      padding: 10px 15px;
+      border-radius: 8px;
+      font-weight: 600;
+      color: #333;
+      text-decoration: none;
+      transition: 0.2s;
+    }
+
+    .nav-menu a:hover,
+    .nav-menu a.active {
+      background: rgba(0, 123, 255, 0.1);
+      color: var(--primary-color);
+    }
+
+    .nav-link-external {
+      display: flex !important;
+      justify-content: flex-start;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .ext-arrow {
+      width: 16px;
+      height: 16px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      opacity: 0.85;
+    }
+
+    .ext-arrow svg {
+      width: 14px;
+      height: 14px;
+      display: block;
+    }
+
+    .intro-overlay {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: rgba(17, 21, 28, 0.35);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity 0.28s ease, visibility 0.28s ease;
+      z-index: 300;
+      box-sizing: border-box;
+    }
+
+    .intro-overlay.is-open {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+
+    .intro-modal {
+      width: min(760px, 92vw);
+      max-height: min(82vh, 720px);
+      overflow-y: auto;
+      background: rgba(255, 255, 255, 0.72);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      border-radius: 16px;
+      box-shadow: 0 20px 56px rgba(0, 0, 0, 0.22);
+      backdrop-filter: blur(22px);
+      -webkit-backdrop-filter: blur(22px);
+      padding: 26px 28px;
+      transform: translateY(26px);
+      opacity: 0;
+      transition: transform 0.32s cubic-bezier(0.2, 0.85, 0.28, 1), opacity 0.32s ease;
+      box-sizing: border-box;
+    }
+
+    .intro-overlay.is-open .intro-modal {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .intro-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .intro-title {
+      margin: 0;
+      font-size: 1.45rem;
+      color: #1a1a1a;
+    }
+
+    .intro-close {
+      border: none;
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      cursor: pointer;
+      background: rgba(0, 0, 0, 0.06);
+      color: #333;
+      font-size: 20px;
+      line-height: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s ease;
+      flex-shrink: 0;
+    }
+
+    .intro-close:hover {
+      background: rgba(0, 0, 0, 0.12);
+    }
+
+    .intro-body {
+      color: #2c2c2c;
+      font-size: 1rem;
+      line-height: 1.85;
+    }
+
+    main {
+      margin-left: 310px;
+      height: calc(100vh - 80px);
+    }
+
+    .section-card {
+      background: var(--card-bg);
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+      margin-bottom: 0;
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    #files.section-card {
+      height: 100%;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .section-title {
+      margin-top: 0;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+      padding-bottom: 10px;
+      font-size: 1.4rem;
+    }
+
+    .w11-explorer {
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.32) !important;
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      height: auto;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      flex: 1;
+      min-height: 0;
+    }
+
+    .w11-toolbar {
+      padding: 12px;
+      background: rgba(255, 255, 255, 0.2) !important;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .w11-back-btn {
+      cursor: pointer;
+      border: none;
+      background: none;
+      display: flex;
+      padding: 6px;
+      border-radius: 4px;
+    }
+
+    .w11-back-btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    .w11-back-btn:hover:not(:disabled) {
+      background: rgba(0, 0, 0, 0.08);
+    }
+
+    .w11-addr {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      padding: 4px 12px;
+      background: rgba(255, 255, 255, 0.6) !important;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      border-radius: 4px;
+      font-size: 13px;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+
+    .crumb {
+      cursor: pointer;
+      padding: 2px 6px;
+      border-radius: 4px;
+      color: #444;
+      flex-shrink: 0;
+    }
+
+    .crumb:hover {
+      background: rgba(0, 0, 0, 0.05);
+    }
+
+    .crumb-separator {
+      color: #ccc;
+      flex-shrink: 0;
+    }
+
+    .w11-content {
+      flex: 1;
+      overflow-y: auto;
+      scrollbar-width: none;
+      padding-top: 2px;
+    }
+
+    .w11-content::-webkit-scrollbar {
+      display: none;
+    }
+
+    .w11-header {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 20px;
+      padding: 0 20px;
+      align-items: center;
+      height: 32px;
+      font-size: 12px;
+      color: #777;
+      font-weight: 600;
+      border-bottom: 1px solid var(--border-color);
+      background: rgba(255, 255, 255, 0.1);
+      margin-bottom: 6px;
+    }
+
+    .w11-item {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 20px;
+      padding: 8px 20px;
+      align-items: center;
+      margin: 3px 8px;
+      border-radius: 6px;
+      border: 1px solid transparent;
+      transition: background 0.1s, border-color 0.1s;
+      cursor: default;
+    }
+
+    .w11-item:hover {
+      background: var(--win11-hover) !important;
+    }
+
+    .w11-item.selected {
+      background: var(--win11-select) !important;
+      border: 1px solid var(--win11-select-border);
+    }
+
+    .w11-item-name {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      color: #111;
+      min-width: 0;
+    }
+
+    .w11-item-name span {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      cursor: pointer;
+    }
+
+    .w11-item-desc {
+      font-size: 12px;
+      color: #666;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      cursor: pointer;
+    }
+
+    .w11-empty {
+      color: #666;
+      font-size: 13px;
+    }
+
+    .w11-search {
+      margin-left: auto;
+      display: flex;
+      position: relative;
+    }
+
+    .w11-search-input {
+      width: 200px;
+      padding: 6px 12px;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      border-radius: 4px;
+      font-size: 13px;
+      background: rgba(255, 255, 255, 0.8);
+      outline: none;
+      transition: all 0.2s ease;
+      font-family: inherit;
+    }
+
+    .w11-search-input:focus {
+      border-color: var(--primary-color);
+      background: #fff;
+      box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+    }
+
+    @media (max-width: 768px) {
+      .sidebar {
+        position: relative;
+        top: 0;
+        width: auto;
+        margin-bottom: 20px;
+      }
+
+      main {
+        margin-left: 0;
+      }
+
+      .container {
+        padding: 20px 10px;
+        height: auto;
+      }
+
+      .w11-header,
+      .w11-item {
+        grid-template-columns: 1fr 100px;
+      }
+
+      .w11-toolbar {
+        flex-wrap: wrap;
+      }
+
+      .w11-search {
+        width: 100%;
+        margin-left: 0;
+      }
+
+      .w11-search-input {
+        width: 100%;
+      }
+
+      body {
+        height: auto;
+        overflow-y: auto;
+      }
+
+      main {
+        height: auto;
+      }
+
+      #files.section-card {
+        height: auto;
+      }
+
+      .w11-explorer {
+        height: 520px;
+      }
+    }
+  </style>
 </head>
 <body>
-    <div id="app"></div>
-    <script type="module" src="/src/main.js"></script>
-    <script src="/filedata.js"></script>
+  <div class="bg-fixed-layer"></div>
+  <div class="bg-overlay"></div>
+
+  <div class="container">
+    <aside class="sidebar">
+      <img
+        src="./avatar.png"
+        class="avatar"
+        alt="头像"
+        onerror="this.src='https://img.icons8.com/fluency/96/user-male-circle.png'"
+      >
+
+      <h1 style="margin: 10px 0 5px; font-size: 1.5rem;">殺手</h1>
+
+      <p style="font-size: 0.9rem; color: #555; line-height: 1.6;">
+        君子坐而论道<br>
+        少年起而行之
+      </p>
+
+      <ul class="nav-menu">
+        <li>
+          <a href="#" id="open-intro-link" class="nav-link nav-link-external">
+            <span>查看网站介绍</span>
+          </a>
+        </li>
+      </ul>
+    </aside>
+
+    <main>
+      <section id="files" class="section-card">
+        <h2 class="section-title">学习资料</h2>
+
+        <p style="font-size: 0.85rem; color: #888; margin-bottom: 10px;">
+          双击文件夹进入, 双击文件下载, pdf默认在浏览器中打开
+        </p>
+
+        <div class="w11-explorer">
+          <div class="w11-toolbar">
+            <button id="back-btn" class="w11-back-btn" type="button">
+              <img
+                src="https://img.icons8.com/material-outlined/48/left.png"
+                alt="返回"
+                style="width: 20px; height: 20px;"
+              >
+            </button>
+
+            <div id="address-bar" class="w11-addr"></div>
+
+            <div class="w11-search">
+              <input
+                id="search-input"
+                type="text"
+                class="w11-search-input"
+                placeholder="搜索文件或文件夹..."
+              >
+            </div>
+          </div>
+
+          <div class="w11-content">
+            <div class="w11-header">
+              <div>名称</div>
+              <div>说明</div>
+            </div>
+            <div id="file-list"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div id="intro-overlay" class="intro-overlay" role="dialog" aria-modal="true" aria-labelledby="intro-modal-title">
+    <section class="intro-modal">
+      <div class="intro-header">
+        <h2 id="intro-modal-title" class="intro-title">网站介绍</h2>
+        <button id="close-intro-btn" class="intro-close" type="button" aria-label="关闭简介窗口">×</button>
+      </div>
+      <div class="intro-body">
+        这是借助 Codex Gemini 与 Github Pages 搭建的个人网站。你可以在这里下载我整理的资料。<br>
+        如果您发现资料缺失/需要补充资料, 欢迎联系 syh080315@gmail.com。<br>
+        电脑浏览以获得最佳体验！
+      </div>
+    </section>
+  </div>
+
+  <script src="./filedata.js"></script>
+  <script>
+    (function () {
+      var db = window.FILE_DB || {};
+      var state = {
+        currentPath: [],
+        selectedKey: "",
+        searchQuery: ""
+      };
+
+      var iconMap = {
+        folder: "https://img.icons8.com/fluency/48/folder-invoices.png",
+        pdf: "https://img.icons8.com/?size=100&id=l0vjMqIboTRs&format=png&color=000000",
+        ppt: "https://img.icons8.com/fluency/48/microsoft-powerpoint-2019.png",
+        pptx: "https://img.icons8.com/fluency/48/microsoft-powerpoint-2019.png",
+        xls: "https://img.icons8.com/fluency/48/microsoft-excel-2019.png",
+        xlsx: "https://img.icons8.com/fluency/48/microsoft-excel-2019.png",
+        doc: "https://img.icons8.com/fluency/48/microsoft-word-2019.png",
+        docx: "https://img.icons8.com/fluency/48/microsoft-word-2019.png",
+        zip: "https://img.icons8.com/?size=100&id=hwJDMFCJ6XVn&format=png&color=000000",
+        mp3: "https://img.icons8.com/?size=100&id=zAzROOhkw_7N&format=png&color=000000",
+        mkv: "https://img.icons8.com/?size=100&id=114331&format=png&color=000000",
+        mp4: "https://img.icons8.com/?size=100&id=114331&format=png&color=000000",
+        default: "https://img.icons8.com/fluency/48/file.png"
+      };
+
+      var fileListEl = document.getElementById("file-list");
+      var searchInputEl = document.getElementById("search-input");
+      var backButtonEl = document.getElementById("back-btn");
+      var addressBarEl = document.getElementById("address-bar");
+      var openIntroLinkEl = document.getElementById("open-intro-link");
+      var introOverlayEl = document.getElementById("intro-overlay");
+      var closeIntroBtnEl = document.getElementById("close-intro-btn");
+
+      function getCurrentNode() {
+        var node = db;
+        var i;
+        for (i = 0; i < state.currentPath.length; i += 1) {
+          var part = state.currentPath[i];
+          if (!node[part] || !node[part].children) {
+            return {};
+          }
+          node = node[part].children;
+        }
+        return node;
+      }
+
+      function buildItemKey(pathArray, name) {
+        return pathArray.concat(name).join("/");
+      }
+
+      function searchFiles(node, query, pathAcc, result) {
+        Object.entries(node).forEach(function (entry) {
+          var name = entry[0];
+          var info = entry[1] || {};
+          var desc = typeof info.desc === "string" ? info.desc.toLowerCase() : "";
+          var isMatch = name.toLowerCase().indexOf(query) !== -1 || desc.indexOf(query) !== -1;
+
+          if (isMatch) {
+            result.push({
+              name: name,
+              info: info,
+              virtualPath: pathAcc.slice(),
+              key: buildItemKey(pathAcc, name)
+            });
+          }
+
+          if (info.children) {
+            searchFiles(info.children, query, pathAcc.concat(name), result);
+          }
+        });
+      }
+
+      function getVisibleItems() {
+        var query = state.searchQuery.trim().toLowerCase();
+        if (query) {
+          var searchResults = [];
+          searchFiles(db, query, [], searchResults);
+          return searchResults;
+        }
+
+        var currentData = getCurrentNode();
+        return Object.entries(currentData).map(function (entry) {
+          return {
+            name: entry[0],
+            info: entry[1],
+            key: buildItemKey(state.currentPath, entry[0]),
+            virtualPath: null
+          };
+        });
+      }
+
+      function getIcon(name, info) {
+        if (info.type === "folder") {
+          return iconMap.folder;
+        }
+        var parts = name.split(".");
+        var ext = parts.length > 1 ? parts[parts.length - 1].toLowerCase() : "";
+        return iconMap[ext] || iconMap.default;
+      }
+
+      function jumpTo(index) {
+        if (index === -1) {
+          state.currentPath = [];
+        } else {
+          state.currentPath = state.currentPath.slice(0, index + 1);
+        }
+        state.selectedKey = "";
+        renderExplorer();
+      }
+
+      function handleOpen(item) {
+        var name = item.name;
+        var info = item.info || {};
+
+        if (info.type === "folder") {
+          if (item.virtualPath) {
+            state.currentPath = item.virtualPath.concat(name);
+            state.searchQuery = "";
+            searchInputEl.value = "";
+          } else {
+            state.currentPath = state.currentPath.concat(name);
+          }
+          state.selectedKey = "";
+          renderExplorer();
+          return;
+        }
+
+        if (info.url) {
+          window.open(encodeURI(info.url), "_blank");
+        }
+      }
+
+      function renderAddressBar() {
+        addressBarEl.innerHTML = "";
+
+        if (state.searchQuery.trim()) {
+          var searchLabel = document.createElement("span");
+          searchLabel.className = "crumb";
+          searchLabel.style.color = "#666";
+          searchLabel.textContent = "搜索结果: \"" + state.searchQuery.trim() + "\"";
+          addressBarEl.appendChild(searchLabel);
+          return;
+        }
+
+        var homeCrumb = document.createElement("span");
+        homeCrumb.className = "crumb";
+        homeCrumb.textContent = "首页";
+        homeCrumb.addEventListener("click", function () {
+          jumpTo(-1);
+        });
+        addressBarEl.appendChild(homeCrumb);
+
+        state.currentPath.forEach(function (pathName, idx) {
+          var sep = document.createElement("span");
+          sep.className = "crumb-separator";
+          sep.textContent = " > ";
+          addressBarEl.appendChild(sep);
+
+          var pathCrumb = document.createElement("span");
+          pathCrumb.className = "crumb";
+          pathCrumb.textContent = pathName;
+          pathCrumb.addEventListener("click", function () {
+            jumpTo(idx);
+          });
+          addressBarEl.appendChild(pathCrumb);
+        });
+      }
+
+      function renderFileList() {
+        fileListEl.innerHTML = "";
+        var items = getVisibleItems();
+
+        if (!items.length) {
+          var emptyRow = document.createElement("div");
+          emptyRow.className = "w11-item w11-empty";
+          emptyRow.innerHTML = "<div>暂无匹配项目</div><div>—</div>";
+          fileListEl.appendChild(emptyRow);
+          return;
+        }
+
+        items.forEach(function (item) {
+          var row = document.createElement("div");
+          row.className = "w11-item" + (state.selectedKey === item.key ? " selected" : "");
+          row.addEventListener("click", function () {
+            state.selectedKey = item.key;
+            renderFileList();
+          });
+          row.addEventListener("dblclick", function () {
+            handleOpen(item);
+          });
+
+          var leftCol = document.createElement("div");
+          leftCol.className = "w11-item-name";
+
+          var icon = document.createElement("img");
+          icon.src = getIcon(item.name, item.info || {});
+          icon.alt = "icon";
+          icon.style.width = "20px";
+          icon.style.height = "20px";
+          leftCol.appendChild(icon);
+
+          var nameSpan = document.createElement("span");
+          if (item.virtualPath) {
+            nameSpan.title = item.virtualPath.concat(item.name).join(" > ");
+          } else {
+            nameSpan.title = item.name;
+          }
+          nameSpan.textContent = item.name;
+          leftCol.appendChild(nameSpan);
+
+          var rightCol = document.createElement("div");
+          rightCol.className = "w11-item-desc";
+          rightCol.textContent = item.info && item.info.desc ? item.info.desc : "—";
+          rightCol.title = rightCol.textContent;
+
+          row.appendChild(leftCol);
+          row.appendChild(rightCol);
+          fileListEl.appendChild(row);
+        });
+      }
+
+      function renderExplorer() {
+        backButtonEl.disabled = state.currentPath.length === 0;
+        renderAddressBar();
+        renderFileList();
+      }
+
+      backButtonEl.addEventListener("click", function () {
+        if (state.currentPath.length > 0) {
+          state.currentPath = state.currentPath.slice(0, state.currentPath.length - 1);
+          state.selectedKey = "";
+          renderExplorer();
+        }
+      });
+
+      searchInputEl.addEventListener("input", function (event) {
+        state.searchQuery = event.target.value || "";
+        state.selectedKey = "";
+        renderExplorer();
+      });
+
+      function openIntroModal() {
+        introOverlayEl.classList.add("is-open");
+      }
+
+      function closeIntroModal() {
+        introOverlayEl.classList.remove("is-open");
+      }
+
+      openIntroLinkEl.addEventListener("click", function (event) {
+        event.preventDefault();
+        openIntroModal();
+      });
+
+      closeIntroBtnEl.addEventListener("click", function () {
+        closeIntroModal();
+      });
+
+      introOverlayEl.addEventListener("click", function (event) {
+        if (event.target === introOverlayEl) {
+          closeIntroModal();
+        }
+      });
+
+      document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape" && introOverlayEl.classList.contains("is-open")) {
+          closeIntroModal();
+        }
+      });
+
+      renderExplorer();
+    })();
+  </script>
 </body>
 </html>

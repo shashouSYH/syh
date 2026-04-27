@@ -252,6 +252,10 @@ window.FILE_DB = {
                     "数学分析讲义(第二册)(程艺 陈卿 李平).pdf": {
                         desc: "数学分析B2教材",
                         url: "files/1春/数学分析B2/数学分析讲义(第二册)(程艺 陈卿 李平).pdf"
+                    },
+                    "数学分析历年试题.pdf": {
+                        desc: "资料存档",
+                        url: "files/1春/数学分析B2/数学分析历年试题.pdf"
                     }
                 }
             },
@@ -274,6 +278,86 @@ window.FILE_DB = {
                         url: "files/1春/概率论与数理统计/概率论与数理统计.pdf"
                     }
                 }
+            },
+            "大学生心理学": {
+                type: "folder",
+                desc: "目录",
+                children: {
+                    "第11组提纲与分工.docx": {
+                        desc: "提纲与分工",
+                        url: "files/1春/大学生心理学/第11组提纲与分工.docx"
+                    },
+                    "宋亦寒.docx": {
+                        desc: "syh负责部分的提纲",
+                        url: "files/1春/大学生心理学/宋亦寒.docx"
+                    },
+                    "宋亦寒.pptx": {
+                        desc: "syh负责部分的ppt",
+                        url: "files/1春/大学生心理学/宋亦寒.pptx"
+                    },
+                    "大心11组汇报PPT.pptx": {
+                        desc: "主题: 大学生身心发展特点",
+                        url: "files/1春/大学生心理学/大心11组汇报PPT.pptx"
+                    }
+                }
+            },
+            "其他资料": {
+                type: "folder",
+                desc: "目录",
+                children: {
+                    "班级事务": {
+                        type: "folder",
+                        desc: "目录",
+                        children: {
+                            "“元宵拾味，暖意相逢”主题团日活动.docx": {
+                                desc: "元宵节活动",
+                                url: "files/1春/其他资料/班级事务/“元宵拾味，暖意相逢”主题团日活动.docx"
+                            },
+                            "25级少院5班26春领书明细.xlsx": {
+                                desc: "资料存档",
+                                url: "files/1春/其他资料/班级事务/25级少院5班26春领书明细.xlsx"
+                            }
+                        }
+                    },
+                    "青马培训": {
+                        type: "folder",
+                        desc: "目录",
+                        children: {
+                            "6.2 附件2：青年马克思主义者培养工程暨“六有”大学生“青马计划”班培训课程安排表.docx": {
+                                desc: "培训时间安排",
+                                url: "files/1春/其他资料/青马培训/6.2 附件2：青年马克思主义者培养工程暨“六有”大学生“青马计划”班培训课程安排表.docx"
+                            },
+                            "PB25000200宋亦寒.docx": {
+                                desc: "资料存档",
+                                url: "files/1春/其他资料/青马培训/PB25000200宋亦寒.docx"
+                            }
+                        }
+                    },
+                    "评优": {
+                        type: "folder",
+                        desc: "目录",
+                        children: {
+                            "联名推荐信.png": {
+                                desc: "推荐信图片",
+                                url: "files/1春/其他资料/评优/联名推荐信.png"
+                            },
+                            "推荐信.docx": {
+                                desc: "推荐信",
+                                url: "files/1春/其他资料/评优/推荐信.docx"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "科学与社会研讨课": {
+        type: "folder",
+        desc: "目录",
+        children: {
+            "模块1-引入.docx": {
+                desc: "引入",
+                url: "files/科学与社会研讨课/[已整理]模块1-引入.docx"
             }
         }
     }

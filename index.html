@@ -719,7 +719,7 @@
         <button id="close-intro-btn" class="intro-close" type="button" aria-label="关闭简介窗口">×</button>
       </div>
       <div class="intro-body">
-        这是借助 Codex Gemini 与 Github Pages 搭建的个人网站。你可以在这里下载我整理的资料。<br>
+        是借助 Codex、Antigravity 与 Github Pages 搭建的个人网站。你可以在这里下载我整理的资料。<br>
         如果您发现资料缺失/需要补充资料, 欢迎联系 syh080315@gmail.com。<br>
         电脑浏览以获得最佳体验！
       </div>
@@ -831,6 +831,7 @@
         doc: "https://img.icons8.com/fluency/48/microsoft-word-2019.png",
         docx: "https://img.icons8.com/fluency/48/microsoft-word-2019.png",
         zip: "https://img.icons8.com/?size=100&id=KFLuQn5NDwSw&format=png&color=000000",
+        "7z": "https://img.icons8.com/?size=100&id=KFLuQn5NDwSw&format=png&color=000000",
         mp3: "https://img.icons8.com/?size=100&id=zAzROOhkw_7N&format=png&color=000000",
         mkv: "https://img.icons8.com/?size=100&id=114331&format=png&color=000000",
         mp4: "https://img.icons8.com/?size=100&id=114331&format=png&color=000000",
@@ -881,7 +882,7 @@
             });
           }
 
-          if (info.children) {
+          if (info.children && isItemPublic(info)) {
             searchFiles(info.children, query, pathAcc.concat(name), result);
           }
         });
@@ -970,6 +971,11 @@
         var name = item.name;
         var info = item.info || {};
 
+        if (!isItemPublic(info)) {
+          showToast("未公开文件", "error");
+          return;
+        }
+
         if (info.type === "folder") {
           if (item.virtualPath) {
             state.currentPath = item.virtualPath.concat(name);
@@ -980,11 +986,6 @@
           }
           state.selectedKey = "";
           renderExplorer();
-          return;
-        }
-
-        if (!isItemPublic(info)) {
-          showToast("无访问权限", "error");
           return;
         }
 

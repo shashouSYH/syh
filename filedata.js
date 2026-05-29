@@ -245,7 +245,7 @@ window.FILE_DB = {
                             },
                             "25级少院5班25秋领书.xlsx": {
                                 "desc": "1秋领书表格, 这适合放上来吗? 大抵无所谓吧",
-                                "isPublic": true,
+                                "isPublic": false,
                                 "url": "files/1秋/其他1秋资料/班级事务/25级少院5班25秋领书.xlsx"
                             },
                             "2025年学生运动会秩序册.pdf": {
@@ -281,49 +281,50 @@ window.FILE_DB = {
                         "children": {
                             "合肥南_郑州东电子发票.pdf": {
                                 "desc": "",
-                                "isPublic": true,
+                                "isPublic": false,
                                 "url": "files/1秋/其他1秋资料/英才班/合肥南_郑州东电子发票.pdf"
                             },
                             "申请表1.pdf": {
                                 "desc": "",
-                                "isPublic": true,
+                                "isPublic": false,
                                 "url": "files/1秋/其他1秋资料/英才班/申请表1.pdf"
                             },
                             "申请表2remake.pdf": {
                                 "desc": "",
-                                "isPublic": true,
+                                "isPublic": false,
                                 "url": "files/1秋/其他1秋资料/英才班/申请表2remake.pdf"
                             },
                             "宋亦寒.zip": {
                                 "desc": "",
-                                "isPublic": true,
+                                "isPublic": false,
                                 "url": "files/1秋/其他1秋资料/英才班/宋亦寒.zip"
                             },
                             "英才班.png": {
                                 "desc": "",
-                                "isPublic": true,
+                                "isPublic": false,
                                 "url": "files/1秋/其他1秋资料/英才班/英才班.png"
                             },
                             "郑州东_合肥南电子发票.pdf": {
                                 "desc": "",
-                                "isPublic": true,
+                                "isPublic": false,
                                 "url": "files/1秋/其他1秋资料/英才班/郑州东_合肥南电子发票.pdf"
                             },
                             "支付截图1.png": {
                                 "desc": "",
-                                "isPublic": true,
+                                "isPublic": false,
                                 "url": "files/1秋/其他1秋资料/英才班/支付截图1.png"
                             },
                             "支付截图2.png": {
                                 "desc": "",
-                                "isPublic": true,
+                                "isPublic": false,
                                 "url": "files/1秋/其他1秋资料/英才班/支付截图2.png"
                             }
-                        }
+                        },
+                        "isPublic": false
                     },
                     "第二十六期学生骨干培训班暨团校第三十二期培训班学员公示名单.xls": {
                         "desc": "",
-                        "isPublic": true,
+                        "isPublic": false,
                         "url": "files/1秋/其他1秋资料/第二十六期学生骨干培训班暨团校第三十二期培训班学员公示名单.xls"
                     },
                     "学生骨干培训心得体会.docx": {
@@ -865,7 +866,7 @@ window.FILE_DB = {
                             },
                             "25级少院5班26春领书明细.xlsx": {
                                 "desc": "资料存档",
-                                "isPublic": true,
+                                "isPublic": false,
                                 "url": "files/1春/其他1春资料/班级事务/25级少院5班26春领书明细.xlsx"
                             }
                         }
@@ -874,11 +875,6 @@ window.FILE_DB = {
                         "type": "folder",
                         "desc": "",
                         "children": {
-                            "6.2 附件2：青年马克思主义者培养工程暨“六有”大学生“青马计划”班培训课程安排表.docx": {
-                                "desc": "培训时间安排",
-                                "isPublic": true,
-                                "url": "files/1春/其他1春资料/青马培训/6.2 附件2：青年马克思主义者培养工程暨“六有”大学生“青马计划”班培训课程安排表.docx"
-                            },
                             "2026年校青马班理论考核题库（60选择+100填空）.pdf": {
                                 "desc": "",
                                 "isPublic": true,
@@ -904,15 +900,15 @@ window.FILE_DB = {
                                 "isPublic": true,
                                 "url": "files/1春/其他1春资料/青马培训/钱学森：心有大我 志诚报国_宋亦寒PB25000200.pptx"
                             },
-                            "宋亦寒PB25000200.zip": {
-                                "desc": "",
-                                "isPublic": true,
-                                "url": "files/1春/其他1春资料/青马培训/宋亦寒PB25000200.zip"
-                            },
                             "PB25000200宋亦寒_两会与科学家精神汇报.docx": {
                                 "desc": "",
                                 "isPublic": true,
                                 "url": "files/1春/其他1春资料/青马培训/PB25000200宋亦寒_两会与科学家精神汇报.docx"
+                            },
+                            "青年马克思主义者培养工程暨“六有”大学生“青马计划”班培训课程安排表.docx": {
+                                "desc": "",
+                                "isPublic": true,
+                                "url": "files/1春/其他1春资料/青马培训/青年马克思主义者培养工程暨“六有”大学生“青马计划”班培训课程安排表.docx"
                             }
                         }
                     },
@@ -929,6 +925,22 @@ window.FILE_DB = {
                                 "desc": "推荐信",
                                 "isPublic": true,
                                 "url": "files/1春/其他1春资料/评优/推荐信.docx"
+                            }
+                        }
+                    },
+                    "English speech": {
+                        "type": "folder",
+                        "desc": "",
+                        "children": {
+                            "Speech draft.docx": {
+                                "desc": "",
+                                "isPublic": true,
+                                "url": "files/1春/其他1春资料/English speech/Speech draft.docx"
+                            },
+                            "The Paradox of Choice.pptx": {
+                                "desc": "",
+                                "isPublic": true,
+                                "url": "files/1春/其他1春资料/English speech/The Paradox of Choice.pptx"
                             }
                         }
                     }
@@ -1046,10 +1058,10 @@ window.FILE_DB = {
                         "isPublic": true,
                         "url": "files/1春/大物实验/大雾实验不完全指北20260322preview1.pdf"
                     },
-                    "实验报告模板-许晨昊PB25000313.docx": {
+                    "实验报告模板.docx": {
                         "desc": "",
                         "isPublic": true,
-                        "url": "files/1春/大物实验/实验报告模板-许晨昊PB25000313.docx"
+                        "url": "files/1春/大物实验/实验报告模板.docx"
                     }
                 }
             },
@@ -1057,31 +1069,20 @@ window.FILE_DB = {
                 "type": "folder",
                 "desc": "",
                 "children": {
-                    "气象与摄影图片集.zip": {
-                        "desc": "",
-                        "isPublic": true,
-                        "url": "files/1春/气象与摄影/气象与摄影图片集.zip"
-                    },
                     "PB25000200宋亦寒.zip": {
                         "desc": "",
                         "isPublic": true,
                         "url": "files/1春/气象与摄影/PB25000200宋亦寒.zip"
-                    }
-                }
-            },
-            "English speech": {
-                "type": "folder",
-                "desc": "",
-                "children": {
-                    "Speech draft.docx": {
-                        "desc": "",
-                        "isPublic": true,
-                        "url": "files/1春/English speech/Speech draft.docx"
                     },
-                    "The Paradox of Choice.pptx": {
+                    "气象与摄影图片集1.zip": {
                         "desc": "",
                         "isPublic": true,
-                        "url": "files/1春/English speech/The Paradox of Choice.pptx"
+                        "url": "files/1春/气象与摄影/气象与摄影图片集1.zip"
+                    },
+                    "气象与摄影图片集2.zip": {
+                        "desc": "",
+                        "isPublic": true,
+                        "url": "files/1春/气象与摄影/气象与摄影图片集2.zip"
                     }
                 }
             }
@@ -1093,7 +1094,7 @@ window.FILE_DB = {
         "children": {
             "过程性材料存档.zip": {
                 "desc": "",
-                "isPublic": true,
+                "isPublic": false,
                 "url": "files/科学与社会研讨课/过程性材料存档.zip"
             },
             "微处理器架构演进与前沿技术综述_宋亦寒&吴毓.docx": {

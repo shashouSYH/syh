@@ -429,7 +429,6 @@
       font-weight: 600;
       border-bottom: 1px solid var(--border-color);
       background: rgba(255, 255, 255, 0.1);
-      margin-bottom: 6px;
     }
 
     .w11-item {
@@ -701,11 +700,11 @@
             </div>
           </div>
 
+          <div class="w11-header">
+            <div>名称</div>
+            <div>说明</div>
+          </div>
           <div class="w11-content">
-            <div class="w11-header">
-              <div>名称</div>
-              <div>说明</div>
-            </div>
             <div id="file-list"></div>
           </div>
         </div>
@@ -727,12 +726,91 @@
     </section>
   </div>
 
-  <script src="./filedata_course.js"></script>
+  <script src="./filedata.js"></script>
   <script>
     (function () {
+      var timeDb = window.FILE_DB || {};
+
+      function isTermFolderName(name) {
+        return /^(?:\d+|[\u4e00-\u9fa5]+)(?:\u6625|\u79cb)$/.test(String(name || ""));
+      }
+
+      function cloneFileNode(node) {
+        if (!node || typeof node !== "object") {
+          return {};
+        }
+
+        var copy = {};
+        Object.keys(node).forEach(function (key) {
+          if (key === "children") {
+            copy.children = cloneChildren(node.children || {});
+          } else {
+            copy[key] = node[key];
+          }
+        });
+        return copy;
+      }
+
+      function cloneChildren(children) {
+        var copy = {};
+        Object.entries(children || {}).forEach(function (entry) {
+          copy[entry[0]] = cloneFileNode(entry[1]);
+        });
+        return copy;
+      }
+
+      function mergeFolderChildren(target, source) {
+        Object.entries(source.children || {}).forEach(function (entry) {
+          var name = entry[0];
+          var sourceChild = entry[1];
+          var targetChild = target.children[name];
+
+          if (
+            targetChild &&
+            targetChild.type === "folder" &&
+            sourceChild &&
+            sourceChild.type === "folder"
+          ) {
+            mergeFolderChildren(targetChild, sourceChild);
+            return;
+          }
+
+          target.children[name] = cloneFileNode(sourceChild);
+        });
+      }
+
+      function addCourseNode(courseDb, name, node) {
+        var existing = courseDb[name];
+        if (existing && existing.type === "folder" && node && node.type === "folder") {
+          mergeFolderChildren(existing, node);
+          return;
+        }
+        courseDb[name] = cloneFileNode(node);
+      }
+
+      function buildCourseDb(sourceDb) {
+        var courseDb = {};
+
+        Object.entries(sourceDb || {}).forEach(function (entry) {
+          var name = entry[0];
+          var node = entry[1];
+
+          if (isTermFolderName(name) && node && node.type === "folder") {
+            Object.entries(node.children || {}).forEach(function (childEntry) {
+              addCourseNode(courseDb, childEntry[0], childEntry[1]);
+            });
+            return;
+          }
+
+          addCourseNode(courseDb, name, node);
+        });
+
+        return courseDb;
+      }
+
       var loadedDbs = {
-        course: window.FILE_DB || {},
-        time: null
+        course: buildCourseDb(timeDb),
+        time: timeDb
       };
       var db = loadedDbs.course;
       var activeView = "course"; // "course" or "time"
@@ -752,7 +830,7 @@
         xlsx: "https://img.icons8.com/fluency/48/microsoft-excel-2019.png",
         doc: "https://img.icons8.com/fluency/48/microsoft-word-2019.png",
         docx: "https://img.icons8.com/fluency/48/microsoft-word-2019.png",
-        zip: "https://img.icons8.com/?size=100&id=hwJDMFCJ6XVn&format=png&color=000000",
+        zip: "https://img.icons8.com/?size=100&id=KFLuQn5NDwSw&format=png&color=000000",
         mp3: "https://img.icons8.com/?size=100&id=zAzROOhkw_7N&format=png&color=000000",
         mkv: "https://img.icons8.com/?size=100&id=114331&format=png&color=000000",
         mp4: "https://img.icons8.com/?size=100&id=114331&format=png&color=000000",
@@ -966,7 +1044,8 @@
         items.forEach(function (item) {
           var row = document.createElement("div");
           row.className = "w11-item" + (state.selectedKey === item.key ? " selected" : "");
-          row.addEventListener("click", function () {
+          row.addEventListener("click", function (event) {
+            event.stopPropagation();
             state.selectedKey = item.key;
             renderFileList();
           });
@@ -1041,43 +1120,16 @@
           searchInputEl.value = "";
           renderExplorer();
         } else if (viewType === "time") {
-          if (loadedDbs.time) {
-            activeView = "time";
-            db = loadedDbs.time;
-            toggleCourseEl.classList.remove("active");
-            toggleTimeEl.classList.add("active");
-            
-            state.currentPath = [];
-            state.selectedKey = "";
-            state.searchQuery = "";
-            searchInputEl.value = "";
-            renderExplorer();
-          } else {
-            toggleTimeEl.style.opacity = "0.6";
-            
-            var script = document.createElement("script");
-            script.src = "./filedata.js";
-            script.onload = function () {
-              toggleTimeEl.style.opacity = "1";
-              loadedDbs.time = window.FILE_DB;
-              
-              activeView = "time";
-              db = loadedDbs.time;
-              toggleCourseEl.classList.remove("active");
-              toggleTimeEl.classList.add("active");
-              
-              state.currentPath = [];
-              state.selectedKey = "";
-              state.searchQuery = "";
-              searchInputEl.value = "";
-              renderExplorer();
-            };
-            script.onerror = function () {
-              toggleTimeEl.style.opacity = "1";
-              showToast("加载时间顺序数据失败，请重试", "error");
-            };
-            document.body.appendChild(script);
-          }
+          activeView = "time";
+          db = loadedDbs.time;
+          toggleCourseEl.classList.remove("active");
+          toggleTimeEl.classList.add("active");
+
+          state.currentPath = [];
+          state.selectedKey = "";
+          state.searchQuery = "";
+          searchInputEl.value = "";
+          renderExplorer();
         }
       }
 
@@ -1115,6 +1167,13 @@
       document.addEventListener("keydown", function (event) {
         if (event.key === "Escape" && introOverlayEl.classList.contains("is-open")) {
           closeIntroModal();
+        }
+      });
+
+      document.addEventListener("click", function () {
+        if (state.selectedKey !== "") {
+          state.selectedKey = "";
+          renderFileList();
         }
       });
 

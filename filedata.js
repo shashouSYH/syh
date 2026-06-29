@@ -1,7 +1,7 @@
 window.FILE_DB = {
     "1春": {
         "type": "folder",
-        "desc": "",
+        "desc": "大一秋季学期课内资料汇总",
         "children": {
             "中国近现代史纲要": {
                 "type": "folder",
@@ -16,7 +16,7 @@ window.FILE_DB = {
             },
             "其他1春资料": {
                 "type": "folder",
-                "desc": "",
+                "desc": "包含其他1春的资料",
                 "children": {
                     "English speech": {
                         "type": "folder",
@@ -44,12 +44,12 @@ window.FILE_DB = {
                         "desc": "",
                         "children": {
                             "25级少院5班26春领书明细.xlsx": {
-                                "desc": "",
+                                "desc": "资料存档",
                                 "isPublic": false,
                                 "url": "files/1春/其他1春资料/班级事务/25级少院5班26春领书明细.xlsx"
                             },
                             "“元宵拾味，暖意相逢”主题团日活动.docx": {
-                                "desc": "",
+                                "desc": "元宵节活动",
                                 "isPublic": false,
                                 "url": "files/1春/其他1春资料/班级事务/“元宵拾味，暖意相逢”主题团日活动.docx"
                             },
@@ -77,12 +77,12 @@ window.FILE_DB = {
                         "desc": "",
                         "children": {
                             "推荐信.docx": {
-                                "desc": "",
+                                "desc": "推荐信",
                                 "isPublic": false,
                                 "url": "files/1春/其他1春资料/评优/推荐信.docx"
                             },
                             "联名推荐信.png": {
-                                "desc": "",
+                                "desc": "推荐信图片",
                                 "isPublic": false,
                                 "url": "files/1春/其他1春资料/评优/联名推荐信.png"
                             }
@@ -147,7 +147,7 @@ window.FILE_DB = {
                 "desc": "",
                 "children": {
                     "大心11组汇报PPT.pptx": {
-                        "desc": "",
+                        "desc": "主题: 大学生身心发展特点",
                         "isPublic": false,
                         "url": "files/1春/大学生心理学/大心11组汇报PPT.pptx"
                     },
@@ -384,12 +384,12 @@ window.FILE_DB = {
                 "desc": "",
                 "children": {
                     "数学分析历年试题.pdf": {
-                        "desc": "",
+                        "desc": "资料存档",
                         "isPublic": true,
                         "url": "files/1春/数学分析B2/数学分析历年试题.pdf"
                     },
                     "数学分析讲义(第二册)(程艺 陈卿 李平).pdf": {
-                        "desc": "",
+                        "desc": "数学分析B2教材",
                         "isPublic": true,
                         "url": "files/1春/数学分析B2/数学分析讲义(第二册)(程艺 陈卿 李平).pdf"
                     }
@@ -585,7 +585,7 @@ window.FILE_DB = {
                         }
                     },
                     "数据结构及应用算法 2版 (袁平波，顾为兵，尹东编著).pdf": {
-                        "desc": "",
+                        "desc": "数据结构及其算法教材",
                         "isPublic": true,
                         "url": "files/1春/数据结构及其算法/数据结构及应用算法 2版 (袁平波，顾为兵，尹东编著).pdf"
                     }
@@ -664,39 +664,39 @@ window.FILE_DB = {
     },
     "1秋": {
         "type": "folder",
-        "desc": "",
+        "desc": "大一秋季学期课内资料汇总",
         "children": {
             "习概&思政": {
                 "type": "folder",
-                "desc": "",
+                "desc": "文科能不能414",
                 "children": {
                     "习概知识总结.pdf": {
-                        "desc": "",
+                        "desc": "习概知识点",
                         "isPublic": true,
                         "url": "files/1秋/习概&思政/习概知识总结.pdf"
                     },
                     "习概课本索引.pdf": {
-                        "desc": "",
+                        "desc": "习概知识点索引",
                         "isPublic": true,
                         "url": "files/1秋/习概&思政/习概课本索引.pdf"
                     },
                     "实现祖国统一.pptx": {
-                        "desc": "",
+                        "desc": "习概小组演讲ppt",
                         "isPublic": false,
                         "url": "files/1秋/习概&思政/实现祖国统一.pptx"
                     },
                     "思政知识总结.pdf": {
-                        "desc": "",
+                        "desc": "思政知识点",
                         "isPublic": true,
                         "url": "files/1秋/习概&思政/思政知识总结.pdf"
                     },
                     "思政课本索引.pdf": {
-                        "desc": "",
+                        "desc": "思政知识点索引",
                         "isPublic": true,
                         "url": "files/1秋/习概&思政/思政课本索引.pdf"
                     },
                     "我眼中的马克思.pptx": {
-                        "desc": "",
+                        "desc": "思政知小组演讲ppt",
                         "isPublic": false,
                         "url": "files/1秋/习概&思政/我眼中的马克思.pptx"
                     }
@@ -704,10 +704,10 @@ window.FILE_DB = {
             },
             "其他1秋资料": {
                 "type": "folder",
-                "desc": "",
+                "desc": "包含其他1秋的资料",
                 "children": {
                     "Internet Slang.pptx": {
-                        "desc": "",
+                        "desc": "英语期末演讲ppt",
                         "isPublic": true,
                         "url": "files/1秋/其他1秋资料/Internet Slang.pptx"
                     },
@@ -718,56 +718,56 @@ window.FILE_DB = {
                     },
                     "班级事务": {
                         "type": "folder",
-                        "desc": "",
+                        "desc": "做一个负责任的班长",
                         "children": {
                             "2025.11.30秋游": {
                                 "type": "folder",
-                                "desc": "",
+                                "desc": "团建存档",
                                 "children": {
                                     "11月30日团日活动计划书.docx": {
-                                        "desc": "",
+                                        "desc": "轰趴计划书?",
                                         "isPublic": false,
                                         "url": "files/1秋/其他1秋资料/班级事务/2025.11.30秋游/11月30日团日活动计划书.docx"
                                     },
                                     "11月30日心理活动计划书.docx": {
-                                        "desc": "",
+                                        "desc": "心理活动计划书?",
                                         "isPublic": false,
                                         "url": "files/1秋/其他1秋资料/班级事务/2025.11.30秋游/11月30日心理活动计划书.docx"
                                     },
                                     "名单-11.30秋游意向统计.xlsx": {
-                                        "desc": "",
+                                        "desc": "参与名单初版",
                                         "isPublic": false,
                                         "url": "files/1秋/其他1秋资料/班级事务/2025.11.30秋游/名单-11.30秋游意向统计.xlsx"
                                     },
                                     "活动新闻稿《同心同行同乐》.docx": {
-                                        "desc": "",
+                                        "desc": "活动新闻稿",
                                         "isPublic": true,
                                         "url": "files/1秋/其他1秋资料/班级事务/2025.11.30秋游/活动新闻稿《同心同行同乐》.docx"
                                     }
                                 }
                             },
                             "2025年学生运动会秩序册.pdf": {
-                                "desc": "",
+                                "desc": "大抵无人在意的运动会秩序册",
                                 "isPublic": false,
                                 "url": "files/1秋/其他1秋资料/班级事务/2025年学生运动会秩序册.pdf"
                             },
                             "25级少院5班25秋领书.xlsx": {
-                                "desc": "",
+                                "desc": "1秋领书表格, 这适合放上来吗? 大抵无所谓吧",
                                 "isPublic": false,
                                 "url": "files/1秋/其他1秋资料/班级事务/25级少院5班25秋领书.xlsx"
                             },
                             "中国科学技术大学第五十六届学生体育运动大会竞赛规程.docx": {
-                                "desc": "",
+                                "desc": "大抵无人在意的运动会竞赛规程",
                                 "isPublic": true,
                                 "url": "files/1秋/其他1秋资料/班级事务/中国科学技术大学第五十六届学生体育运动大会竞赛规程.docx"
                             },
                             "竞选班长.pptx": {
-                                "desc": "",
+                                "desc": "我的班长竞选ppt",
                                 "isPublic": true,
                                 "url": "files/1秋/其他1秋资料/班级事务/竞选班长.pptx"
                             },
                             "纪念杨振宁先生暨科学家精神学习会.pptx": {
-                                "desc": "",
+                                "desc": "纪念杨振宁先生暨科学家精神学习会ppt",
                                 "isPublic": true,
                                 "url": "files/1秋/其他1秋资料/班级事务/纪念杨振宁先生暨科学家精神学习会.pptx"
                             }
@@ -829,35 +829,35 @@ window.FILE_DB = {
             },
             "力学A": {
                 "type": "folder",
-                "desc": "",
+                "desc": "下辈子再也不选力学A了",
                 "children": {
                     "交叉学科基础物理教程力学习题解答.pdf": {
-                        "desc": "",
+                        "desc": "教材习题答案, 有部分笔误",
                         "isPublic": true,
                         "url": "files/1秋/力学A/交叉学科基础物理教程力学习题解答.pdf"
                     },
                     "力学习题及解答-舒幼生, 北大版, 2005.pdf": {
-                        "desc": "",
+                        "desc": "舒幼生力学, 推荐教辅",
                         "isPublic": true,
                         "url": "files/1秋/力学A/力学习题及解答-舒幼生, 北大版, 2005.pdf"
                     },
                     "力学大作业汇报终稿.pptx": {
-                        "desc": "",
+                        "desc": "小组作业",
                         "isPublic": false,
                         "url": "files/1秋/力学A/力学大作业汇报终稿.pptx"
                     },
                     "力学期末复习笔记.pdf": {
-                        "desc": "",
+                        "desc": "期末复习笔记, 但是期末挂科的人的笔记会有用吗? 仅存档",
                         "isPublic": true,
                         "url": "files/1秋/力学A/力学期末复习笔记.pdf"
                     },
                     "物理学难题集萃难度分级表.xlsx": {
-                        "desc": "",
+                        "desc": "难题集萃使用指南",
                         "isPublic": true,
                         "url": "files/1秋/力学A/物理学难题集萃难度分级表.xlsx"
                     },
                     "舒幼生-物理学难题集萃.pdf": {
-                        "desc": "",
+                        "desc": "难题集萃, 推荐教辅",
                         "isPublic": true,
                         "url": "files/1秋/力学A/舒幼生-物理学难题集萃.pdf"
                     }
@@ -865,35 +865,35 @@ window.FILE_DB = {
             },
             "数学分析B1": {
                 "type": "folder",
-                "desc": "",
+                "desc": "下辈子一定好好学习数学分析",
                 "children": {
                     "微积分学习指导(上册).pdf": {
-                        "desc": "",
+                        "desc": "数学分析推荐教辅",
                         "isPublic": true,
                         "url": "files/1秋/数学分析B1/微积分学习指导(上册).pdf"
                     },
                     "微积分学习指导(下册).pdf": {
-                        "desc": "",
+                        "desc": "数学分析推荐教辅",
                         "isPublic": true,
                         "url": "files/1秋/数学分析B1/微积分学习指导(下册).pdf"
                     },
                     "数学分析B1补充习题笔记.pdf": {
-                        "desc": "",
+                        "desc": "数分某些习题, 历年试卷某些题目的笔记, 应该无用, 仅存档",
                         "isPublic": true,
                         "url": "files/1秋/数学分析B1/数学分析B1补充习题笔记.pdf"
                     },
                     "数学分析历年试题.pdf": {
-                        "desc": "",
+                        "desc": "25-26期末+数学分析历年试题(2024版, 来自pksq)",
                         "isPublic": true,
                         "url": "files/1秋/数学分析B1/数学分析历年试题.pdf"
                     },
                     "数学分析期末复习讲座.pdf": {
-                        "desc": "",
+                        "desc": "期末复习讲座",
                         "isPublic": true,
                         "url": "files/1秋/数学分析B1/数学分析期末复习讲座.pdf"
                     },
                     "数学分析讲义 (第一册) (程艺 陈卿 李平).pdf": {
-                        "desc": "",
+                        "desc": "数学分析B1教材",
                         "isPublic": true,
                         "url": "files/1秋/数学分析B1/数学分析讲义 (第一册) (程艺 陈卿 李平).pdf"
                     }
@@ -901,35 +901,35 @@ window.FILE_DB = {
             },
             "线性代数B1": {
                 "type": "folder",
-                "desc": "",
+                "desc": "在一秋选择线代是正确的",
                 "children": {
                     "作业&习题课.zip": {
-                        "desc": "",
+                        "desc": "课后作业&习题课部分讲义, 应该没什么用了, 只是存档",
                         "isPublic": true,
                         "url": "files/1秋/线性代数B1/作业&习题课.zip"
                     },
                     "线性代数(同济).pdf": {
-                        "desc": "",
+                        "desc": "同济大学线性代数教材, 对比USTC教材胜在更浅显与层次清晰",
                         "isPublic": true,
                         "url": "files/1秋/线性代数B1/线性代数(同济).pdf"
                     },
                     "线性代数B1历年试题.pdf": {
-                        "desc": "",
+                        "desc": "截止到24-25年的历年试题, 来自pksq",
                         "isPublic": true,
                         "url": "files/1秋/线性代数B1/线性代数B1历年试题.pdf"
                     },
                     "线性代数B1笔记.pdf": {
-                        "desc": "",
+                        "desc": "参考USTC&同济教材。带着脑子抄书是正确的。建议仅参考里面的补充习题, 可能含有笔误",
                         "isPublic": true,
                         "url": "files/1秋/线性代数B1/线性代数B1笔记.pdf"
                     },
                     "线性代数B1讲义.pdf": {
-                        "desc": "",
+                        "desc": "USTC线性代数B1教材",
                         "isPublic": true,
                         "url": "files/1秋/线性代数B1/线性代数B1讲义.pdf"
                     },
                     "线性代数学习辅导与习题全解(同济).pdf": {
-                        "desc": "",
+                        "desc": "同济大学线性代数教材辅导讲义",
                         "isPublic": true,
                         "url": "files/1秋/线性代数B1/线性代数学习辅导与习题全解(同济).pdf"
                     }
@@ -937,7 +937,7 @@ window.FILE_DB = {
             },
             "网安导论": {
                 "type": "folder",
-                "desc": "",
+                "desc": "网络空间安全导论",
                 "children": {
                     "第一次-宋亦寒-PB25000200.docx": {
                         "desc": "",
@@ -950,17 +950,17 @@ window.FILE_DB = {
                         "url": "files/1秋/网安导论/第二次-宋亦寒-PB25000200.pdf"
                     },
                     "网安导论英文缩写对照表.xlsx": {
-                        "desc": "",
+                        "desc": "来自pksq, 期末考试考点之一",
                         "isPublic": true,
                         "url": "files/1秋/网安导论/网安导论英文缩写对照表.xlsx"
                     },
                     "网安导论课后习题参考答案.docx": {
-                        "desc": "",
+                        "desc": "教材习题参考答案, 非官方解答",
                         "isPublic": true,
                         "url": "files/1秋/网安导论/网安导论课后习题参考答案.docx"
                     },
                     "网络空间安全导论 (刘建伟主编) .pdf": {
-                        "desc": "",
+                        "desc": "课程教材",
                         "isPublic": true,
                         "url": "files/1秋/网安导论/网络空间安全导论 (刘建伟主编) .pdf"
                     }
@@ -968,20 +968,20 @@ window.FILE_DB = {
             },
             "计算机程序设计": {
                 "type": "folder",
-                "desc": "",
+                "desc": "学习C语言是对的吗?",
                 "children": {
                     "程设复习笔记.pdf": {
-                        "desc": "",
+                        "desc": "综合测试题错题&笔记整理, 仅供参考, 什么时候取消程设笔试啊",
                         "isPublic": true,
                         "url": "files/1秋/计算机程序设计/程设复习笔记.pdf"
                     },
                     "程设总复习.pdf": {
-                        "desc": "",
+                        "desc": "期末复习文件",
                         "isPublic": true,
                         "url": "files/1秋/计算机程序设计/程设总复习.pdf"
                     },
                     "程设期末模拟测试题.pdf": {
-                        "desc": "",
+                        "desc": "四份期末模拟测试题",
                         "isPublic": true,
                         "url": "files/1秋/计算机程序设计/程设期末模拟测试题.pdf"
                     }

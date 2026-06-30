@@ -149,60 +149,12 @@
       display: block;
     }
 
-    .svg-sprite {
-      position: absolute;
-      width: 0;
-      height: 0;
-      overflow: hidden;
-    }
-
-    .toolbar-icon,
-    .w11-icon {
+    .w11-back-btn img,
+    .w11-item-name img {
       width: 20px;
       height: 20px;
       display: block;
       flex: 0 0 auto;
-    }
-
-    .toolbar-icon {
-      color: #5f6974;
-    }
-
-    .w11-icon {
-      color: #64748b;
-    }
-
-    .w11-icon-folder {
-      color: #e6a400;
-    }
-
-    .w11-icon-pdf {
-      color: #dc2626;
-    }
-
-    .w11-icon-ppt,
-    .w11-icon-video {
-      color: #d97706;
-    }
-
-    .w11-icon-xls {
-      color: #16a34a;
-    }
-
-    .w11-icon-doc {
-      color: #2563eb;
-    }
-
-    .w11-icon-archive {
-      color: #7c3aed;
-    }
-
-    .w11-icon-audio {
-      color: #0891b2;
-    }
-
-    .w11-icon-link {
-      color: #0284c7;
     }
 
     .intro-overlay {
@@ -798,6 +750,8 @@
       #files.section-card {
         height: auto;
         min-height: 0;
+        margin-left: clamp(6px, 2vw, 10px);
+        margin-right: clamp(6px, 2vw, 10px);
       }
 
       .section-header {
@@ -915,7 +869,7 @@
         line-height: 1.35;
       }
 
-      .w11-icon {
+      .w11-item-name img {
         flex: 0 0 auto;
         width: 22px !important;
         height: 22px !important;
@@ -946,7 +900,7 @@
 
       .toast {
         max-width: calc(100vw - 32px);
-        border-radius: 12px;
+        border-radius: 9999px;
       }
 
       .intro-modal {
@@ -992,52 +946,6 @@
   <div class="bg-fixed-layer"></div>
   <div class="bg-overlay"></div>
   <div id="toast-container"></div>
-  <svg class="svg-sprite" aria-hidden="true" focusable="false">
-    <symbol id="icon-back" viewBox="0 0 24 24">
-      <path d="M15 18 9 12l6-6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path>
-    </symbol>
-    <symbol id="icon-folder" viewBox="0 0 24 24">
-      <path d="M3 7.5A2.5 2.5 0 0 1 5.5 5h4.1l2 2H18.5A2.5 2.5 0 0 1 21 9.5v1H3z" fill="currentColor" opacity="0.45"></path>
-      <path d="M3 9h18l-1.2 8.5A2.9 2.9 0 0 1 16.9 20H7.1a2.9 2.9 0 0 1-2.9-2.5z" fill="currentColor"></path>
-    </symbol>
-    <symbol id="icon-file" viewBox="0 0 24 24">
-      <path d="M6 3h8l4 4v14H6z" fill="currentColor" opacity="0.18"></path>
-      <path d="M14 3v5h5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"></path>
-      <path d="M6 3h8l5 5v13H6z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"></path>
-    </symbol>
-    <symbol id="icon-pdf" viewBox="0 0 24 24">
-      <path d="M6 3h8l4 4v14H6z" fill="currentColor" opacity="0.16"></path>
-      <path d="M6 3h8l4 4v14H6z" fill="none" stroke="currentColor" stroke-width="1.6"></path>
-      <path d="M8 15h8M8 18h5M14 3v5h4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></path>
-    </symbol>
-    <symbol id="icon-ppt" viewBox="0 0 24 24">
-      <rect x="4" y="4" width="16" height="16" rx="3" fill="currentColor" opacity="0.2"></rect>
-      <path d="M9 17V7h4.1a3 3 0 0 1 0 6H9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path>
-    </symbol>
-    <symbol id="icon-xls" viewBox="0 0 24 24">
-      <rect x="4" y="4" width="16" height="16" rx="3" fill="currentColor" opacity="0.2"></rect>
-      <path d="m8 8 8 8M16 8l-8 8" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"></path>
-    </symbol>
-    <symbol id="icon-doc" viewBox="0 0 24 24">
-      <rect x="4" y="4" width="16" height="16" rx="3" fill="currentColor" opacity="0.2"></rect>
-      <path d="M7.5 8.5h9M7.5 12h9M7.5 15.5h6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path>
-    </symbol>
-    <symbol id="icon-archive" viewBox="0 0 24 24">
-      <path d="M5 6h14v13H5z" fill="currentColor" opacity="0.18"></path>
-      <path d="M5 6h14v13H5zM4 4h16v2H4zM10 10h4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path>
-    </symbol>
-    <symbol id="icon-audio" viewBox="0 0 24 24">
-      <path d="M5 14v-4h4l5-4v12l-5-4z" fill="currentColor" opacity="0.28"></path>
-      <path d="M17 9.5a4 4 0 0 1 0 5M19 7a7 7 0 0 1 0 10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path>
-    </symbol>
-    <symbol id="icon-video" viewBox="0 0 24 24">
-      <rect x="4" y="6" width="12" height="12" rx="2" fill="currentColor" opacity="0.2"></rect>
-      <path d="M16 10.5 20 8v8l-4-2.5zM4 6h12v12H4z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"></path>
-    </symbol>
-    <symbol id="icon-link" viewBox="0 0 24 24">
-      <path d="M10.5 13.5a3.5 3.5 0 0 0 5 0l2-2a3.5 3.5 0 0 0-5-5l-1.1 1.1M13.5 10.5a3.5 3.5 0 0 0-5 0l-2 2a3.5 3.5 0 0 0 5 5l1.1-1.1" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"></path>
-    </symbol>
-  </svg>
 
   <div class="container">
     <aside class="sidebar">
@@ -1045,7 +953,7 @@
         src="./avatar.png"
         class="avatar"
         alt="头像"
-        onerror="this.style.visibility='hidden'"
+        onerror="this.src='https://img.icons8.com/fluency/96/user-male-circle.png'"
       >
 
       <h1 style="margin: 10px 0 5px; font-size: 1.5rem;">殺手</h1>
@@ -1092,9 +1000,7 @@
         <div class="w11-explorer">
           <div id="file-toolbar" class="w11-toolbar">
             <button id="back-btn" class="w11-back-btn" type="button">
-              <svg class="toolbar-icon" aria-hidden="true" focusable="false">
-                <use href="#icon-back"></use>
-              </svg>
+              <img src="https://img.icons8.com/material-outlined/48/left.png" alt="返回">
             </button>
 
             <div id="address-bar" class="w11-addr"></div>
@@ -1233,23 +1139,26 @@
         searchQuery: ""
       };
 
-      var iconTypeMap = {
-        pdf: "pdf",
-        ppt: "ppt",
-        pptx: "ppt",
-        xls: "xls",
-        xlsx: "xls",
-        doc: "doc",
-        docx: "doc",
-        zip: "archive",
-        "7z": "archive",
-        rar: "archive",
-        mp3: "audio",
-        wav: "audio",
-        m4a: "audio",
-        mkv: "video",
-        mp4: "video",
-        mov: "video"
+      var iconMap = {
+        folder: "https://img.icons8.com/fluency/48/folder-invoices.png",
+        pdf: "https://img.icons8.com/?size=100&id=l0vjMqIboTRs&format=png&color=000000",
+        ppt: "https://img.icons8.com/fluency/48/microsoft-powerpoint-2019.png",
+        pptx: "https://img.icons8.com/fluency/48/microsoft-powerpoint-2019.png",
+        xls: "https://img.icons8.com/fluency/48/microsoft-excel-2019.png",
+        xlsx: "https://img.icons8.com/fluency/48/microsoft-excel-2019.png",
+        doc: "https://img.icons8.com/fluency/48/microsoft-word-2019.png",
+        docx: "https://img.icons8.com/fluency/48/microsoft-word-2019.png",
+        zip: "https://img.icons8.com/?size=100&id=KFLuQn5NDwSw&format=png&color=000000",
+        "7z": "https://img.icons8.com/?size=100&id=KFLuQn5NDwSw&format=png&color=000000",
+        rar: "https://img.icons8.com/?size=100&id=KFLuQn5NDwSw&format=png&color=000000",
+        mp3: "https://img.icons8.com/?size=100&id=zAzROOhkw_7N&format=png&color=000000",
+        wav: "https://img.icons8.com/?size=100&id=zAzROOhkw_7N&format=png&color=000000",
+        m4a: "https://img.icons8.com/?size=100&id=zAzROOhkw_7N&format=png&color=000000",
+        mkv: "https://img.icons8.com/?size=100&id=114331&format=png&color=000000",
+        mp4: "https://img.icons8.com/?size=100&id=114331&format=png&color=000000",
+        mov: "https://img.icons8.com/?size=100&id=114331&format=png&color=000000",
+        link: "https://img.icons8.com/fluency/48/link.png",
+        default: "https://img.icons8.com/fluency/48/file.png"
       };
 
       var fileListEl = document.getElementById("file-list");
@@ -1351,27 +1260,27 @@
           });
       }
 
-      function getIconKind(name, info) {
+      function getIcon(name, info) {
         if (info.type === "folder") {
-          return "folder";
+          return iconMap.folder;
         }
         var parts = name.split(".");
         var ext = parts.length > 1 ? parts[parts.length - 1].toLowerCase() : "";
-        return iconTypeMap[ext] || "file";
+        return iconMap[ext] || iconMap.default;
       }
 
-      function createIcon(kind) {
-        var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-        var use = document.createElementNS("http://www.w3.org/2000/svg", "use");
-        var iconKind = kind || "file";
-
-        svg.classList.add("w11-icon", "w11-icon-" + iconKind);
-        svg.setAttribute("aria-hidden", "true");
-        svg.setAttribute("focusable", "false");
-        use.setAttribute("href", "#icon-" + iconKind);
-        use.setAttributeNS("http://www.w3.org/1999/xlink", "href", "#icon-" + iconKind);
-        svg.appendChild(use);
-        return svg;
+      function preloadIcons() {
+        var seen = {};
+        Object.keys(iconMap).forEach(function (key) {
+          var url = iconMap[key];
+          if (seen[url]) {
+            return;
+          }
+          seen[url] = true;
+          var image = new Image();
+          image.decoding = "async";
+          image.src = url;
+        });
       }
 
       function getDescriptionText(info) {
@@ -1566,7 +1475,11 @@
           var leftCol = document.createElement("div");
           leftCol.className = "w11-item-name";
 
-          var icon = createIcon(getIconKind(item.name, item.info || {}));
+          var icon = document.createElement("img");
+          icon.src = getIcon(item.name, item.info || {});
+          icon.alt = "icon";
+          icon.loading = "eager";
+          icon.decoding = "async";
           leftCol.appendChild(icon);
 
           var nameSpan = document.createElement("span");
@@ -1612,7 +1525,11 @@
           var leftCol = document.createElement("div");
           leftCol.className = "w11-item-name";
 
-          var icon = createIcon("link");
+          var icon = document.createElement("img");
+          icon.src = iconMap.link;
+          icon.alt = "icon";
+          icon.loading = "eager";
+          icon.decoding = "async";
           leftCol.appendChild(icon);
 
           var titleSpan = document.createElement("span");
@@ -1765,6 +1682,7 @@
         }
       });
 
+      preloadIcons();
       renderExplorer();
     })();
   </script>

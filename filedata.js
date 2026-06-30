@@ -604,6 +604,11 @@ window.FILE_DB = {
                                 "isPublic": true,
                                 "url": "files/1春/概率论与数理统计/教材/《概率论与数理统计》第1-2次印刷勘误表.pdf"
                             },
+                            "概率论与数理统计教材.pdf": {
+                                "desc": "课程教材",
+                                "isPublic": true,
+                                "url": "files/1春/概率论与数理统计/教材/概率论与数理统计教材.pdf"
+                            },
                             "普林斯顿概率论读本(可能推荐).pdf": {
                                 "desc": "",
                                 "isPublic": true,

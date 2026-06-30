@@ -424,6 +424,11 @@ window.FILE_DB = {
                                 "isPublic": true,
                                 "url": "files/1春/数据结构及其算法/复习资料/27王道《数据结构》 - 解答题部分.pdf"
                             },
+                            "2027王道数据结构讲义.pdf": {
+                                "desc": "王道数据结构讲义, 已压缩",
+                                "isPublic": true,
+                                "url": "files/1春/数据结构及其算法/复习资料/2027王道数据结构讲义.pdf"
+                            },
                             "【推荐使用】27王道《数据结构》 - 选择部分.pdf": {
                                 "desc": "",
                                 "isPublic": true,
@@ -433,6 +438,11 @@ window.FILE_DB = {
                                 "desc": "",
                                 "isPublic": true,
                                 "url": "files/1春/数据结构及其算法/复习资料/四套往年题（08-10&17-19）.pdf"
+                            },
+                            "数据结构及其算法笔记.pdf": {
+                                "desc": "数据结构及其算法笔记",
+                                "isPublic": true,
+                                "url": "files/1春/数据结构及其算法/复习资料/数据结构及其算法笔记.pdf"
                             },
                             "数据结构练习1.pdf": {
                                 "desc": "",

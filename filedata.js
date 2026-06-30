@@ -383,6 +383,11 @@ window.FILE_DB = {
                 "type": "folder",
                 "desc": "",
                 "children": {
+                    "第11-13章重点总结.pdf": {
+                        "desc": "第11至13章重点总结",
+                        "isPublic": true,
+                        "url": "files/1春/数学分析B2/第11-13章重点总结.pdf"
+                    },
                     "数学分析历年试题.pdf": {
                         "desc": "资料存档",
                         "isPublic": true,

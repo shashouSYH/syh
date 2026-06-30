@@ -66,7 +66,7 @@
 
     .sidebar {
       background: var(--card-bg);
-      padding: 30px 20px;
+      padding: 30px 20px 22px;
       border-radius: 16px;
       box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
       text-align: center;
@@ -100,6 +100,10 @@
       margin-bottom: 8px;
     }
 
+    .nav-menu li:last-child {
+      margin-bottom: 0;
+    }
+
     .nav-menu a {
       display: block;
       padding: 10px 15px;
@@ -114,6 +118,12 @@
     .nav-menu a.active {
       background: rgba(0, 123, 255, 0.1);
       color: var(--primary-color);
+    }
+
+    .section-helper[hidden],
+    .view-toggle[hidden],
+    .w11-toolbar[hidden] {
+      display: none !important;
     }
 
     .nav-link-external {
@@ -656,6 +666,16 @@
 
       <ul class="nav-menu">
         <li>
+          <a href="#" id="open-files-link" class="nav-link active">
+            <span>学习资料</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" id="open-links-link" class="nav-link">
+            <span>友情链接</span>
+          </a>
+        </li>
+        <li>
           <a href="#" id="open-intro-link" class="nav-link nav-link-external">
             <span>查看网站介绍</span>
           </a>
@@ -666,20 +686,20 @@
     <main>
       <section id="files" class="section-card">
         <div class="section-header">
-          <h2 class="section-title-new">学习资料</h2>
-          <div class="view-toggle">
+          <h2 id="section-title" class="section-title-new">学习资料</h2>
+          <div id="view-toggle" class="view-toggle">
             <span class="toggle-option active" id="toggle-course">以课程展示</span>
             <span class="toggle-separator">|</span>
             <span class="toggle-option" id="toggle-time">以时间顺序展示</span>
           </div>
         </div>
 
-        <p style="font-size: 0.85rem; color: #888; margin-bottom: 10px; margin-top: 10px;">
+        <p id="section-helper" class="section-helper" style="font-size: 0.85rem; color: #888; margin-bottom: 10px; margin-top: 10px;">
           双击文件夹进入, 双击文件下载, pdf默认在浏览器中打开
         </p>
 
         <div class="w11-explorer">
-          <div class="w11-toolbar">
+          <div id="file-toolbar" class="w11-toolbar">
             <button id="back-btn" class="w11-back-btn" type="button">
               <img
                 src="https://img.icons8.com/material-outlined/48/left.png"
@@ -701,7 +721,7 @@
           </div>
 
           <div class="w11-header">
-            <div>名称</div>
+            <div id="primary-column-heading">名称</div>
             <div>说明</div>
           </div>
           <div class="w11-content">
@@ -719,7 +739,7 @@
         <button id="close-intro-btn" class="intro-close" type="button" aria-label="关闭简介窗口">×</button>
       </div>
       <div class="intro-body">
-        是借助 Codex、Antigravity 与 Github Pages 搭建的个人网站。你可以在这里下载我整理的资料。<br>
+        这是借助 Codex、Antigravity 与 Github Pages 搭建的个人网站。你可以在这里下载我整理的资料。<br>
         如果您发现资料缺失/需要补充资料, 欢迎联系 syh080315@gmail.com。<br>
         电脑浏览以获得最佳体验！
       </div>
@@ -727,9 +747,11 @@
   </div>
 
   <script src="./filedata.js"></script>
+  <script src="./links.js"></script>
   <script>
     (function () {
       var timeDb = window.FILE_DB || {};
+      var friendLinks = Array.isArray(window.FRIEND_LINKS) ? window.FRIEND_LINKS : [];
 
       function isTermFolderName(name) {
         return /^(?:\d+|[\u4e00-\u9fa5]+)(?:\u6625|\u79cb)$/.test(String(name || ""));
@@ -814,6 +836,7 @@
       };
       var db = loadedDbs.course;
       var activeView = "course"; // "course" or "time"
+      var activeContent = "files"; // "files" or "links"
 
       var state = {
         currentPath: [],
@@ -835,6 +858,7 @@
         mp3: "https://img.icons8.com/?size=100&id=zAzROOhkw_7N&format=png&color=000000",
         mkv: "https://img.icons8.com/?size=100&id=114331&format=png&color=000000",
         mp4: "https://img.icons8.com/?size=100&id=114331&format=png&color=000000",
+        link: "https://img.icons8.com/fluency/48/link.png",
         default: "https://img.icons8.com/fluency/48/file.png"
       };
 
@@ -842,6 +866,13 @@
       var searchInputEl = document.getElementById("search-input");
       var backButtonEl = document.getElementById("back-btn");
       var addressBarEl = document.getElementById("address-bar");
+      var fileToolbarEl = document.getElementById("file-toolbar");
+      var sectionTitleEl = document.getElementById("section-title");
+      var sectionHelperEl = document.getElementById("section-helper");
+      var primaryColumnHeadingEl = document.getElementById("primary-column-heading");
+      var viewToggleEl = document.getElementById("view-toggle");
+      var openFilesLinkEl = document.getElementById("open-files-link");
+      var openLinksLinkEl = document.getElementById("open-links-link");
       var openIntroLinkEl = document.getElementById("open-intro-link");
       var introOverlayEl = document.getElementById("intro-overlay");
       var closeIntroBtnEl = document.getElementById("close-intro-btn");
@@ -913,6 +944,21 @@
         }
 
         return items;
+      }
+
+      function getVisibleLinks() {
+        return friendLinks
+          .filter(function (link) {
+            return link && typeof link === "object";
+          })
+          .map(function (link, index) {
+            return {
+              title: String(link.title || "未命名链接"),
+              desc: String(link.desc || ""),
+              url: String(link.url || ""),
+              key: "link-" + index
+            };
+          });
       }
 
       function getIcon(name, info) {
@@ -992,6 +1038,24 @@
         if (info.url) {
           window.open(encodeURI(info.url), "_blank");
         }
+      }
+
+      function handleOpenLink(link) {
+        var targetUrl = normalizeExternalUrl(link.url);
+        if (targetUrl) {
+          window.open(encodeURI(targetUrl), "_blank", "noopener,noreferrer");
+        }
+      }
+
+      function normalizeExternalUrl(url) {
+        var normalized = String(url || "").trim();
+        if (!normalized) {
+          return "";
+        }
+        if (/^[a-z][a-z0-9+.-]*:/i.test(normalized)) {
+          return normalized;
+        }
+        return "https://" + normalized;
       }
 
       function renderAddressBar() {
@@ -1084,10 +1148,73 @@
         });
       }
 
+      function renderLinkList() {
+        fileListEl.innerHTML = "";
+        var links = getVisibleLinks();
+
+        if (!links.length) {
+          var emptyRow = document.createElement("div");
+          emptyRow.className = "w11-item w11-empty";
+          emptyRow.innerHTML = "<div>暂无友情链接</div><div>—</div>";
+          fileListEl.appendChild(emptyRow);
+          return;
+        }
+
+        links.forEach(function (link) {
+          var row = document.createElement("div");
+          row.className = "w11-item" + (state.selectedKey === link.key ? " selected" : "");
+          row.addEventListener("click", function (event) {
+            event.stopPropagation();
+            state.selectedKey = link.key;
+            renderLinkList();
+          });
+          row.addEventListener("dblclick", function () {
+            handleOpenLink(link);
+          });
+
+          var leftCol = document.createElement("div");
+          leftCol.className = "w11-item-name";
+
+          var icon = document.createElement("img");
+          icon.src = iconMap.link;
+          icon.alt = "icon";
+          icon.style.width = "20px";
+          icon.style.height = "20px";
+          leftCol.appendChild(icon);
+
+          var titleSpan = document.createElement("span");
+          titleSpan.title = link.title;
+          titleSpan.textContent = link.title;
+          leftCol.appendChild(titleSpan);
+
+          var rightCol = document.createElement("div");
+          rightCol.className = "w11-item-desc";
+          rightCol.textContent = link.desc || "（空）";
+          rightCol.title = rightCol.textContent;
+
+          row.appendChild(leftCol);
+          row.appendChild(rightCol);
+          fileListEl.appendChild(row);
+        });
+      }
+
       function renderExplorer() {
-        backButtonEl.disabled = state.currentPath.length === 0;
-        renderAddressBar();
-        renderFileList();
+        var isFiles = activeContent === "files";
+        sectionTitleEl.textContent = isFiles ? "学习资料" : "友情链接";
+        viewToggleEl.hidden = !isFiles;
+        sectionHelperEl.hidden = !isFiles;
+        fileToolbarEl.hidden = !isFiles;
+        primaryColumnHeadingEl.textContent = isFiles ? "名称" : "标题";
+        openFilesLinkEl.classList.toggle("active", isFiles);
+        openLinksLinkEl.classList.toggle("active", !isFiles);
+
+        if (isFiles) {
+          backButtonEl.disabled = state.currentPath.length === 0;
+          renderAddressBar();
+          renderFileList();
+        } else {
+          renderLinkList();
+        }
       }
 
       backButtonEl.addEventListener("click", function () {
@@ -1134,12 +1261,39 @@
         }
       }
 
+      function resetFileState() {
+        state.currentPath = [];
+        state.selectedKey = "";
+        state.searchQuery = "";
+        searchInputEl.value = "";
+      }
+
+      function switchContent(contentType) {
+        if (contentType === activeContent) {
+          return;
+        }
+
+        activeContent = contentType;
+        resetFileState();
+        renderExplorer();
+      }
+
       toggleTimeEl.addEventListener("click", function () {
         switchView("time");
       });
 
       toggleCourseEl.addEventListener("click", function () {
         switchView("course");
+      });
+
+      openFilesLinkEl.addEventListener("click", function (event) {
+        event.preventDefault();
+        switchContent("files");
+      });
+
+      openLinksLinkEl.addEventListener("click", function (event) {
+        event.preventDefault();
+        switchContent("links");
       });
 
       function openIntroModal() {
@@ -1174,7 +1328,7 @@
       document.addEventListener("click", function () {
         if (state.selectedKey !== "") {
           state.selectedKey = "";
-          renderFileList();
+          renderExplorer();
         }
       });
 

@@ -19,6 +19,21 @@
       margin: 0;
       padding: 0;
       scroll-behavior: smooth;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    a,
+    button,
+    input,
+    textarea,
+    select,
+    [role="button"],
+    .nav-link,
+    .toggle-option,
+    .crumb,
+    .w11-item,
+    .intro-close {
+      -webkit-tap-highlight-color: transparent;
     }
 
     body {
@@ -112,6 +127,7 @@
       color: #333;
       text-decoration: none;
       transition: 0.2s;
+      -webkit-tap-highlight-color: transparent;
     }
 
     .nav-menu a:hover,
@@ -232,6 +248,7 @@
       justify-content: center;
       transition: background 0.2s ease;
       flex-shrink: 0;
+      -webkit-tap-highlight-color: transparent;
     }
 
     .intro-close:hover {
@@ -303,6 +320,7 @@
       padding: 2px 4px;
       position: relative;
       transition: color 0.2s ease, font-weight 0.2s ease;
+      -webkit-tap-highlight-color: transparent;
     }
 
     .toggle-option:hover {
@@ -416,6 +434,7 @@
       border-radius: 4px;
       color: #444;
       flex-shrink: 0;
+      -webkit-tap-highlight-color: transparent;
     }
 
     .crumb:hover {
@@ -463,6 +482,7 @@
       border: 1px solid transparent;
       transition: background 0.1s, border-color 0.1s;
       cursor: default;
+      -webkit-tap-highlight-color: transparent;
     }
 
     .w11-item:hover {
@@ -654,6 +674,10 @@
     }
 
     @media (max-width: 768px) {
+      * {
+        -webkit-tap-highlight-color: transparent !important;
+      }
+
       html {
         height: auto;
         min-height: 100%;
@@ -674,6 +698,7 @@
       }
 
       .container {
+        --mobile-card-inset: clamp(6px, 2vw, 10px);
         width: 100%;
         min-height: 100vh;
         min-height: 100dvh;
@@ -686,10 +711,10 @@
         display: grid;
         grid-template-columns: 68px minmax(0, 1fr);
         column-gap: 14px;
-        row-gap: 4px;
+        row-gap: 2px;
         align-items: center;
-        padding: 14px;
-        margin-bottom: 12px;
+        padding: 12px 14px;
+        margin: 0 var(--mobile-card-inset) 12px;
         border-radius: 14px;
         text-align: left;
       }
@@ -717,9 +742,9 @@
         grid-column: 1 / -1;
         display: grid;
         grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 8px;
-        padding: 12px 0 0;
-        margin: 12px 0 0;
+        gap: 6px;
+        padding: 8px 0 0;
+        margin: 8px 0 0;
       }
 
       .nav-menu li {
@@ -728,13 +753,13 @@
 
       .nav-menu a,
       .nav-link-external {
-        min-height: 40px;
+        min-height: 32px;
         display: flex !important;
         align-items: center;
         justify-content: center;
-        padding: 8px 6px;
-        font-size: 0.9rem;
-        line-height: 1.25;
+        padding: 5px 4px;
+        font-size: 0.86rem;
+        line-height: 1.15;
         text-align: center;
       }
 
@@ -753,8 +778,8 @@
       #files.section-card {
         height: auto;
         min-height: 0;
-        margin-left: clamp(6px, 2vw, 10px);
-        margin-right: clamp(6px, 2vw, 10px);
+        margin-left: var(--mobile-card-inset);
+        margin-right: var(--mobile-card-inset);
       }
 
       .section-header {
@@ -869,12 +894,22 @@
         margin: 0;
         padding: 12px;
         border-radius: 10px;
+        border-color: rgba(0, 0, 0, 0.04);
         background: rgba(255, 255, 255, 0.42);
-        box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5) inset;
+        background-clip: padding-box;
+        box-shadow: 0 6px 16px rgba(30, 41, 59, 0.08);
         cursor: pointer;
         touch-action: manipulation;
         -webkit-tap-highlight-color: transparent;
         user-select: none;
+      }
+
+      .w11-item:hover,
+      .w11-item:active,
+      .w11-item:focus {
+        background: rgba(255, 255, 255, 0.42) !important;
+        box-shadow: 0 6px 16px rgba(30, 41, 59, 0.08);
+        outline: none;
       }
 
       .w11-item-name {
@@ -946,13 +981,13 @@
       }
 
       .nav-menu {
-        gap: 6px;
+        gap: 5px;
       }
 
       .nav-menu a,
       .nav-link-external {
-        min-height: 38px;
-        font-size: 0.8rem;
+        min-height: 30px;
+        font-size: 0.78rem;
       }
     }
   </style>
@@ -1300,7 +1335,7 @@
 
       function getDescriptionText(info) {
         var desc = info && typeof info.desc === "string" ? info.desc.trim() : "";
-        return desc ? desc : "（空）";
+        return desc ? desc : "-";
       }
 
       function isItemPublic(info) {
@@ -1554,7 +1589,7 @@
 
           var rightCol = document.createElement("div");
           rightCol.className = "w11-item-desc";
-          rightCol.textContent = link.desc || "（空）";
+          rightCol.textContent = link.desc || "-";
           rightCol.title = rightCol.textContent;
 
           row.appendChild(leftCol);

@@ -149,6 +149,62 @@
       display: block;
     }
 
+    .svg-sprite {
+      position: absolute;
+      width: 0;
+      height: 0;
+      overflow: hidden;
+    }
+
+    .toolbar-icon,
+    .w11-icon {
+      width: 20px;
+      height: 20px;
+      display: block;
+      flex: 0 0 auto;
+    }
+
+    .toolbar-icon {
+      color: #5f6974;
+    }
+
+    .w11-icon {
+      color: #64748b;
+    }
+
+    .w11-icon-folder {
+      color: #e6a400;
+    }
+
+    .w11-icon-pdf {
+      color: #dc2626;
+    }
+
+    .w11-icon-ppt,
+    .w11-icon-video {
+      color: #d97706;
+    }
+
+    .w11-icon-xls {
+      color: #16a34a;
+    }
+
+    .w11-icon-doc {
+      color: #2563eb;
+    }
+
+    .w11-icon-archive {
+      color: #7c3aed;
+    }
+
+    .w11-icon-audio {
+      color: #0891b2;
+    }
+
+    .w11-icon-link {
+      color: #0284c7;
+    }
+
     .intro-overlay {
       position: fixed;
       inset: 0;
@@ -641,12 +697,347 @@
         height: 520px;
       }
     }
+
+    @media (max-width: 768px) {
+      html {
+        height: auto;
+        min-height: 100%;
+        overflow-y: auto;
+      }
+
+      body {
+        height: auto;
+        min-height: 100vh;
+        min-height: 100dvh;
+        overflow-x: hidden;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .bg-overlay {
+        background: rgba(255, 255, 255, 0.16);
+      }
+
+      .container {
+        width: 100%;
+        min-height: 100vh;
+        min-height: 100dvh;
+        height: auto;
+        overflow: visible;
+        padding: 12px clamp(10px, 3vw, 16px) calc(110px + env(safe-area-inset-bottom, 0px));
+      }
+
+      .sidebar {
+        display: grid;
+        grid-template-columns: 68px minmax(0, 1fr);
+        column-gap: 14px;
+        row-gap: 4px;
+        align-items: center;
+        padding: 14px;
+        margin-bottom: 12px;
+        border-radius: 14px;
+        text-align: left;
+      }
+
+      .avatar {
+        grid-row: 1 / span 2;
+        width: 64px;
+        height: 64px;
+        margin: 0;
+      }
+
+      .sidebar h1 {
+        margin: 0 !important;
+        font-size: 1.35rem !important;
+        line-height: 1.2;
+      }
+
+      .sidebar p {
+        margin: 0 !important;
+        font-size: 0.86rem !important;
+        line-height: 1.45 !important;
+      }
+
+      .nav-menu {
+        grid-column: 1 / -1;
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 8px;
+        padding: 12px 0 0;
+        margin: 12px 0 0;
+      }
+
+      .nav-menu li {
+        margin: 0;
+      }
+
+      .nav-menu a,
+      .nav-link-external {
+        min-height: 40px;
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+        padding: 8px 6px;
+        font-size: 0.9rem;
+        line-height: 1.25;
+        text-align: center;
+      }
+
+      main {
+        margin-left: 0;
+        height: auto;
+        min-height: 0;
+      }
+
+      .section-card {
+        padding: 16px 14px;
+        border-radius: 14px;
+        margin-bottom: 16px;
+      }
+
+      #files.section-card {
+        height: auto;
+        min-height: 0;
+      }
+
+      .section-header {
+        gap: 12px;
+        padding-bottom: 10px;
+        margin-bottom: 8px;
+      }
+
+      .section-title-new {
+        font-size: 1.25rem;
+      }
+
+      .view-toggle {
+        width: 100%;
+        gap: 6px;
+        line-height: 1.25;
+      }
+
+      .toggle-option {
+        padding: 6px 2px;
+        font-size: 0.9rem;
+      }
+
+      .toggle-separator {
+        margin: 0 2px;
+      }
+
+      .section-helper {
+        margin: 6px 0 12px !important;
+        color: #4f5b66 !important;
+        font-size: 0.78rem !important;
+        line-height: 1.5;
+      }
+
+      .w11-explorer {
+        height: auto;
+        min-height: 0;
+        overflow: visible;
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.52) !important;
+      }
+
+      .w11-toolbar {
+        display: grid;
+        grid-template-columns: 40px minmax(0, 1fr);
+        gap: 8px;
+        align-items: center;
+        padding: 10px;
+      }
+
+      .w11-back-btn {
+        width: 40px;
+        height: 40px;
+        align-items: center;
+        justify-content: center;
+        background: rgba(255, 255, 255, 0.45);
+        touch-action: manipulation;
+      }
+
+      .w11-addr {
+        min-width: 0;
+        height: 40px;
+        padding: 0 10px;
+        font-size: 0.9rem;
+        box-sizing: border-box;
+      }
+
+      .w11-search {
+        grid-column: 1 / -1;
+        width: 100%;
+        margin-left: 0;
+      }
+
+      .w11-search-input {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 11px 12px;
+        border-radius: 8px;
+        font-size: 16px;
+      }
+
+      .w11-header {
+        display: none;
+      }
+
+      .w11-content {
+        overflow: visible;
+        padding: 8px;
+      }
+
+      #file-list {
+        display: grid;
+        gap: 8px;
+      }
+
+      .w11-item {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 5px;
+        align-items: start;
+        margin: 0;
+        padding: 12px;
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.42);
+        box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5) inset;
+        cursor: pointer;
+        touch-action: manipulation;
+        -webkit-tap-highlight-color: rgba(0, 123, 255, 0.12);
+      }
+
+      .w11-item-name {
+        align-items: flex-start;
+        gap: 9px;
+        font-size: 0.95rem;
+        line-height: 1.35;
+      }
+
+      .w11-icon {
+        flex: 0 0 auto;
+        width: 22px !important;
+        height: 22px !important;
+        margin-top: 1px;
+      }
+
+      .w11-item-name span {
+        overflow: visible;
+        text-overflow: clip;
+        white-space: normal;
+        word-break: break-word;
+      }
+
+      .w11-item-desc {
+        padding-left: 31px;
+        color: #55606a;
+        font-size: 0.8rem;
+        line-height: 1.45;
+        overflow: visible;
+        text-overflow: clip;
+        white-space: normal;
+        word-break: break-word;
+      }
+
+      .w11-empty {
+        color: #4f5b66;
+      }
+
+      .toast {
+        max-width: calc(100vw - 32px);
+        border-radius: 12px;
+      }
+
+      .intro-modal {
+        width: calc(100vw - 24px);
+        padding: 20px;
+        border-radius: 14px;
+      }
+
+      .intro-body {
+        font-size: 0.95rem;
+      }
+    }
+
+    @media (max-width: 360px) {
+      .container {
+        padding-right: 8px;
+        padding-left: 8px;
+      }
+
+      .sidebar {
+        grid-template-columns: 58px minmax(0, 1fr);
+        column-gap: 12px;
+      }
+
+      .avatar {
+        width: 56px;
+        height: 56px;
+      }
+
+      .nav-menu {
+        gap: 6px;
+      }
+
+      .nav-menu a,
+      .nav-link-external {
+        min-height: 38px;
+        font-size: 0.8rem;
+      }
+    }
   </style>
 </head>
 <body>
   <div class="bg-fixed-layer"></div>
   <div class="bg-overlay"></div>
   <div id="toast-container"></div>
+  <svg class="svg-sprite" aria-hidden="true" focusable="false">
+    <symbol id="icon-back" viewBox="0 0 24 24">
+      <path d="M15 18 9 12l6-6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path>
+    </symbol>
+    <symbol id="icon-folder" viewBox="0 0 24 24">
+      <path d="M3 7.5A2.5 2.5 0 0 1 5.5 5h4.1l2 2H18.5A2.5 2.5 0 0 1 21 9.5v1H3z" fill="currentColor" opacity="0.45"></path>
+      <path d="M3 9h18l-1.2 8.5A2.9 2.9 0 0 1 16.9 20H7.1a2.9 2.9 0 0 1-2.9-2.5z" fill="currentColor"></path>
+    </symbol>
+    <symbol id="icon-file" viewBox="0 0 24 24">
+      <path d="M6 3h8l4 4v14H6z" fill="currentColor" opacity="0.18"></path>
+      <path d="M14 3v5h5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"></path>
+      <path d="M6 3h8l5 5v13H6z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"></path>
+    </symbol>
+    <symbol id="icon-pdf" viewBox="0 0 24 24">
+      <path d="M6 3h8l4 4v14H6z" fill="currentColor" opacity="0.16"></path>
+      <path d="M6 3h8l4 4v14H6z" fill="none" stroke="currentColor" stroke-width="1.6"></path>
+      <path d="M8 15h8M8 18h5M14 3v5h4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></path>
+    </symbol>
+    <symbol id="icon-ppt" viewBox="0 0 24 24">
+      <rect x="4" y="4" width="16" height="16" rx="3" fill="currentColor" opacity="0.2"></rect>
+      <path d="M9 17V7h4.1a3 3 0 0 1 0 6H9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path>
+    </symbol>
+    <symbol id="icon-xls" viewBox="0 0 24 24">
+      <rect x="4" y="4" width="16" height="16" rx="3" fill="currentColor" opacity="0.2"></rect>
+      <path d="m8 8 8 8M16 8l-8 8" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"></path>
+    </symbol>
+    <symbol id="icon-doc" viewBox="0 0 24 24">
+      <rect x="4" y="4" width="16" height="16" rx="3" fill="currentColor" opacity="0.2"></rect>
+      <path d="M7.5 8.5h9M7.5 12h9M7.5 15.5h6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path>
+    </symbol>
+    <symbol id="icon-archive" viewBox="0 0 24 24">
+      <path d="M5 6h14v13H5z" fill="currentColor" opacity="0.18"></path>
+      <path d="M5 6h14v13H5zM4 4h16v2H4zM10 10h4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path>
+    </symbol>
+    <symbol id="icon-audio" viewBox="0 0 24 24">
+      <path d="M5 14v-4h4l5-4v12l-5-4z" fill="currentColor" opacity="0.28"></path>
+      <path d="M17 9.5a4 4 0 0 1 0 5M19 7a7 7 0 0 1 0 10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path>
+    </symbol>
+    <symbol id="icon-video" viewBox="0 0 24 24">
+      <rect x="4" y="6" width="12" height="12" rx="2" fill="currentColor" opacity="0.2"></rect>
+      <path d="M16 10.5 20 8v8l-4-2.5zM4 6h12v12H4z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"></path>
+    </symbol>
+    <symbol id="icon-link" viewBox="0 0 24 24">
+      <path d="M10.5 13.5a3.5 3.5 0 0 0 5 0l2-2a3.5 3.5 0 0 0-5-5l-1.1 1.1M13.5 10.5a3.5 3.5 0 0 0-5 0l-2 2a3.5 3.5 0 0 0 5 5l1.1-1.1" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"></path>
+    </symbol>
+  </svg>
 
   <div class="container">
     <aside class="sidebar">
@@ -654,7 +1045,7 @@
         src="./avatar.png"
         class="avatar"
         alt="头像"
-        onerror="this.src='https://img.icons8.com/fluency/96/user-male-circle.png'"
+        onerror="this.style.visibility='hidden'"
       >
 
       <h1 style="margin: 10px 0 5px; font-size: 1.5rem;">殺手</h1>
@@ -695,17 +1086,15 @@
         </div>
 
         <p id="section-helper" class="section-helper" style="font-size: 0.85rem; color: #888; margin-bottom: 10px; margin-top: 10px;">
-          双击文件夹进入, 双击文件下载, pdf默认在浏览器中打开
+          宽屏电脑双击打开，手机或窄屏点击即可进入或下载，PDF 默认在浏览器中打开
         </p>
 
         <div class="w11-explorer">
           <div id="file-toolbar" class="w11-toolbar">
             <button id="back-btn" class="w11-back-btn" type="button">
-              <img
-                src="https://img.icons8.com/material-outlined/48/left.png"
-                alt="返回"
-                style="width: 20px; height: 20px;"
-              >
+              <svg class="toolbar-icon" aria-hidden="true" focusable="false">
+                <use href="#icon-back"></use>
+              </svg>
             </button>
 
             <div id="address-bar" class="w11-addr"></div>
@@ -741,7 +1130,7 @@
       <div class="intro-body">
         这是借助 Codex、Antigravity 与 Github Pages 搭建的个人网站。你可以在这里下载我整理的资料。<br>
         如果您发现资料缺失/需要补充资料, 欢迎联系 syh080315@gmail.com。<br>
-        电脑浏览以获得最佳体验！
+        手机端点击条目即可进入或打开资料。
       </div>
     </section>
   </div>
@@ -844,22 +1233,23 @@
         searchQuery: ""
       };
 
-      var iconMap = {
-        folder: "https://img.icons8.com/fluency/48/folder-invoices.png",
-        pdf: "https://img.icons8.com/?size=100&id=l0vjMqIboTRs&format=png&color=000000",
-        ppt: "https://img.icons8.com/fluency/48/microsoft-powerpoint-2019.png",
-        pptx: "https://img.icons8.com/fluency/48/microsoft-powerpoint-2019.png",
-        xls: "https://img.icons8.com/fluency/48/microsoft-excel-2019.png",
-        xlsx: "https://img.icons8.com/fluency/48/microsoft-excel-2019.png",
-        doc: "https://img.icons8.com/fluency/48/microsoft-word-2019.png",
-        docx: "https://img.icons8.com/fluency/48/microsoft-word-2019.png",
-        zip: "https://img.icons8.com/?size=100&id=KFLuQn5NDwSw&format=png&color=000000",
-        "7z": "https://img.icons8.com/?size=100&id=KFLuQn5NDwSw&format=png&color=000000",
-        mp3: "https://img.icons8.com/?size=100&id=zAzROOhkw_7N&format=png&color=000000",
-        mkv: "https://img.icons8.com/?size=100&id=114331&format=png&color=000000",
-        mp4: "https://img.icons8.com/?size=100&id=114331&format=png&color=000000",
-        link: "https://img.icons8.com/fluency/48/link.png",
-        default: "https://img.icons8.com/fluency/48/file.png"
+      var iconTypeMap = {
+        pdf: "pdf",
+        ppt: "ppt",
+        pptx: "ppt",
+        xls: "xls",
+        xlsx: "xls",
+        doc: "doc",
+        docx: "doc",
+        zip: "archive",
+        "7z": "archive",
+        rar: "archive",
+        mp3: "audio",
+        wav: "audio",
+        m4a: "audio",
+        mkv: "video",
+        mp4: "video",
+        mov: "video"
       };
 
       var fileListEl = document.getElementById("file-list");
@@ -961,13 +1351,27 @@
           });
       }
 
-      function getIcon(name, info) {
+      function getIconKind(name, info) {
         if (info.type === "folder") {
-          return iconMap.folder;
+          return "folder";
         }
         var parts = name.split(".");
         var ext = parts.length > 1 ? parts[parts.length - 1].toLowerCase() : "";
-        return iconMap[ext] || iconMap.default;
+        return iconTypeMap[ext] || "file";
+      }
+
+      function createIcon(kind) {
+        var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+        var use = document.createElementNS("http://www.w3.org/2000/svg", "use");
+        var iconKind = kind || "file";
+
+        svg.classList.add("w11-icon", "w11-icon-" + iconKind);
+        svg.setAttribute("aria-hidden", "true");
+        svg.setAttribute("focusable", "false");
+        use.setAttribute("href", "#icon-" + iconKind);
+        use.setAttributeNS("http://www.w3.org/1999/xlink", "href", "#icon-" + iconKind);
+        svg.appendChild(use);
+        return svg;
       }
 
       function getDescriptionText(info) {
@@ -1058,6 +1462,51 @@
         return "https://" + normalized;
       }
 
+      function shouldOpenOnSingleClick() {
+        var isCoarsePointer = window.matchMedia &&
+          window.matchMedia("(hover: none), (pointer: coarse)").matches;
+        var isNarrowLayout = window.matchMedia ?
+          window.matchMedia("(max-width: 768px)").matches :
+          window.innerWidth <= 768;
+        return isNarrowLayout || isCoarsePointer;
+      }
+
+      function markSelectedRow(row, key) {
+        state.selectedKey = key;
+        Array.from(fileListEl.querySelectorAll(".w11-item.selected")).forEach(function (selectedRow) {
+          selectedRow.classList.remove("selected");
+        });
+        row.classList.add("selected");
+      }
+
+      function bindInteractiveRow(row, key, openCallback) {
+        row.tabIndex = 0;
+        row.setAttribute("role", "button");
+
+        row.addEventListener("click", function (event) {
+          event.stopPropagation();
+          if (shouldOpenOnSingleClick()) {
+            openCallback();
+            return;
+          }
+          markSelectedRow(row, key);
+        });
+
+        row.addEventListener("dblclick", function (event) {
+          event.stopPropagation();
+          openCallback();
+        });
+
+        row.addEventListener("keydown", function (event) {
+          if (event.key !== "Enter" && event.key !== " ") {
+            return;
+          }
+          event.preventDefault();
+          event.stopPropagation();
+          openCallback();
+        });
+      }
+
       function renderAddressBar() {
         addressBarEl.innerHTML = "";
 
@@ -1109,23 +1558,15 @@
         items.forEach(function (item) {
           var row = document.createElement("div");
           row.className = "w11-item" + (state.selectedKey === item.key ? " selected" : "");
-          row.addEventListener("click", function (event) {
-            event.stopPropagation();
-            state.selectedKey = item.key;
-            renderFileList();
-          });
-          row.addEventListener("dblclick", function () {
+          row.setAttribute("aria-label", "打开 " + item.name);
+          bindInteractiveRow(row, item.key, function () {
             handleOpen(item);
           });
 
           var leftCol = document.createElement("div");
           leftCol.className = "w11-item-name";
 
-          var icon = document.createElement("img");
-          icon.src = getIcon(item.name, item.info || {});
-          icon.alt = "icon";
-          icon.style.width = "20px";
-          icon.style.height = "20px";
+          var icon = createIcon(getIconKind(item.name, item.info || {}));
           leftCol.appendChild(icon);
 
           var nameSpan = document.createElement("span");
@@ -1163,23 +1604,15 @@
         links.forEach(function (link) {
           var row = document.createElement("div");
           row.className = "w11-item" + (state.selectedKey === link.key ? " selected" : "");
-          row.addEventListener("click", function (event) {
-            event.stopPropagation();
-            state.selectedKey = link.key;
-            renderLinkList();
-          });
-          row.addEventListener("dblclick", function () {
+          row.setAttribute("aria-label", "打开链接 " + link.title);
+          bindInteractiveRow(row, link.key, function () {
             handleOpenLink(link);
           });
 
           var leftCol = document.createElement("div");
           leftCol.className = "w11-item-name";
 
-          var icon = document.createElement("img");
-          icon.src = iconMap.link;
-          icon.alt = "icon";
-          icon.style.width = "20px";
-          icon.style.height = "20px";
+          var icon = createIcon("link");
           leftCol.appendChild(icon);
 
           var titleSpan = document.createElement("span");
